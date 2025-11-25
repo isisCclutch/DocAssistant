@@ -81,11 +81,10 @@
 
     <!-- Navigation -->
     <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"> <!-- Reduced padding on mobile -->
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"> 
             <div class="flex justify-between h-16">
-                <!-- Left side (Logo area if needed, kept empty for now) -->
                 <div class="flex-shrink-0 flex items-center w-0 sm:w-auto">
-                    <!-- Empty as requested -->
+                    <!-- App Name Removed -->
                 </div>
 
                 <!-- Center Tabs - Responsive Logic -->
@@ -95,22 +94,21 @@
                         <button onclick="switchTab('calculator')" id="nav-calculator" class="nav-link-base active-indigo inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
                             <span>🧮</span>
                             <span class="hidden sm:inline ml-2">Doc Gen Calculator</span>
-                            <span class="inline sm:hidden ml-1">Calculator</span> <!-- Short text for mobile -->
+                            <span class="inline sm:hidden ml-1">Calculator</span> 
                         </button>
                         <button onclick="switchTab('lender')" id="nav-lender" class="nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
                             <span>🏦</span>
                             <span class="hidden sm:inline ml-2">Lender Requirement</span>
-                            <span class="inline sm:hidden ml-1">Lender</span> <!-- Short text for mobile -->
+                            <span class="inline sm:hidden ml-1">Lender</span> 
                         </button>
                         <button onclick="switchTab('fraud')" id="nav-fraud" class="nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
                             <span>🕵️‍♀️</span>
                             <span class="hidden sm:inline ml-2">Fraudulent Document</span>
-                            <span class="inline sm:hidden ml-1">Fraud Doc</span> <!-- Short text for mobile -->
+                            <span class="inline sm:hidden ml-1">Fraud Doc</span> 
                         </button>
                     </div>
                 </div>
 
-                <!-- Right side (User menu if needed, kept empty) -->
                 <div class="flex items-center w-0 sm:w-auto">
                 </div>
             </div>
@@ -120,7 +118,7 @@
     <!-- Main Content -->
     <main class="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
-        <!-- === PAGE 1: DOC GEN CALCULATOR (Indigo Theme) === -->
+        <!-- === PAGE 1: DOC GEN CALCULATOR === -->
         <div id="view-calculator" class="space-y-8">
             
             <!-- A. Cash Price Calculator -->
@@ -129,24 +127,24 @@
                     <h2 class="text-lg font-bold text-indigo-700">A. Cash Price Calculator</h2>
                 </div>
                 <div class="p-6 space-y-6">
-                    <!-- Inputs -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Inputs (Vertical Stack & Enlarged) -->
+                    <div class="flex flex-col gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Cash Price</label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                    <span class="text-gray-500 sm:text-xl">$</span>
                                 </div>
-                                <input type="number" id="cashPrice" value="20290" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-md sm:text-lg font-medium" placeholder="0.00">
+                                <input type="number" id="cashPrice" value="20290" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-md text-2xl font-medium" placeholder="0.00">
                             </div>
                         </div>
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-1">Discount</label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                    <span class="text-gray-500 sm:text-xl">$</span>
                                 </div>
-                                <input type="number" id="cashDiscount" value="0" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-md sm:text-lg font-medium" placeholder="0.00">
+                                <input type="number" id="cashDiscount" value="0" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-md text-2xl font-medium" placeholder="0.00">
                             </div>
                         </div>
                     </div>
@@ -157,31 +155,28 @@
                         <span class="bg-gray-100 px-3 py-1 rounded">Admin Fee (NS): $899.00</span>
                     </div>
 
-                    <!-- Results Table -->
+                    <!-- Results Table (Simplified Matrix) -->
                     <div class="border rounded-lg overflow-hidden">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-indigo-600 text-white">
+                        <table class="min-w-full divide-y divide-gray-200 border-collapse">
+                            <thead>
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Result Package</th>
-                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Cash Price on DT</th>
+                                    <th class="px-4 py-3 bg-gray-50 border-b border-r border-gray-200 w-1/5"></th>
+                                    <th class="px-4 py-3 bg-indigo-50 text-center text-sm font-bold text-indigo-700 border-b border-r border-gray-200 w-2/5">Non-Ess.</th>
+                                    <th class="px-4 py-3 bg-indigo-50 text-center text-sm font-bold text-indigo-700 border-b w-2/5">w/ Essential</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200 font-medium">
+                            <tbody class="bg-white text-lg font-bold">
+                                <!-- ON Row -->
+                                <tr class="border-b border-gray-200">
+                                    <td class="px-4 py-4 bg-green-50 text-green-800 text-center border-r border-gray-200">ON</td>
+                                    <td class="px-4 py-4 text-center text-green-600 border-r border-gray-200" id="res-on-basic">$0.00</td>
+                                    <td class="px-4 py-4 text-center text-green-600" id="res-on-ess">$0.00</td>
+                                </tr>
+                                <!-- NS Row -->
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">ON Basic Package</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-green-600" id="res-on-basic">$0.00</td>
-                                </tr>
-                                <tr class="bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">ON w/ Essential ($1,500)</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-blue-600" id="res-on-ess">$0.00</td>
-                                </tr>
-                                <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">NS Basic Package (+$899 Admin Fee)</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-green-600" id="res-ns-basic">$0.00</td>
-                                </tr>
-                                <tr class="bg-gray-50">
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">NS w/ Essential (+$1,500 Pkg + $899 Admin)</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right text-blue-600" id="res-ns-ess">$0.00</td>
+                                    <td class="px-4 py-4 bg-indigo-50 text-indigo-800 text-center border-r border-gray-200">NS</td>
+                                    <td class="px-4 py-4 text-center text-indigo-600 border-r border-gray-200" id="res-ns-basic">$0.00</td>
+                                    <td class="px-4 py-4 text-center text-indigo-600" id="res-ns-ess">$0.00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -215,95 +210,99 @@
                 </div>
             </section>
 
-            <!-- C. Package Net Price -->
+            <!-- C. Package Net Price (Updated Layout & Font Size & Alignment) -->
             <section class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="border-b border-gray-200 bg-gray-50 px-6 py-4 flex justify-between items-center">
                     <h2 class="text-lg font-bold text-indigo-700">C. Package Net Price (After Discount)</h2>
                     <span class="text-xs text-gray-400">Values update automatically</span>
                 </div>
                 <div class="p-6">
-                    <div class="w-full">
-                        <!-- Table Area -->
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full">
-                                <thead>
-                                    <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-100">
-                                        <th class="pb-3 text-left w-1/4">Item</th>
-                                        <th class="pb-3 text-center w-1/4">Premium Cost</th>
-                                        <th class="pb-3 text-center w-1/4">Discount</th>
-                                        <th class="pb-3 text-right w-1/4">Net Price</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-100 text-sm">
-                                    <!-- Warranty -->
-                                    <tr>
-                                        <td class="py-4 font-medium text-gray-900">Warranty</td>
-                                        <td class="py-4 px-2">
-                                            <input type="number" id="warrantyCost" value="3533" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
-                                        </td>
-                                        <td class="py-4 px-2">
-                                            <input type="number" id="warrantyDisc" value="0" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
-                                        </td>
-                                        <td class="py-4 text-right font-bold text-red-600" id="res-warranty-net">$3,533.00</td>
-                                    </tr>
-                                    <!-- Rust -->
-                                    <tr>
-                                        <td class="py-4 font-medium text-gray-900">Rust Protection</td>
-                                        <td class="py-4 px-2">
-                                            <input type="number" id="rustCost" value="1259" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
-                                        </td>
-                                        <td class="py-4 px-2">
-                                            <input type="number" id="rustDisc" value="377.7" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
-                                        </td>
-                                        <td class="py-4 text-right font-bold text-red-600" id="res-rust-net">$881.30</td>
-                                    </tr>
-                                    <!-- Tire & Rim -->
-                                    <tr>
-                                        <td class="py-4 font-medium text-gray-900">Tire & Rim Protection</td>
-                                        <td class="py-4 px-2">
-                                            <input type="number" id="tireCost" value="1059" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
-                                        </td>
-                                        <td class="py-4 px-2">
-                                            <input type="number" id="tireDisc" value="317.7" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
-                                        </td>
-                                        <td class="py-4 text-right font-bold text-red-600" id="res-tire-net">$741.30</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        
-                        <!-- Total Bar -->
-                        <div class="mt-6 bg-red-50 rounded-lg p-4 flex justify-between items-center border border-red-100">
-                            <span class="text-red-800 font-bold">C. Total Net Price of All Items</span>
-                            <span class="text-2xl font-black text-red-900" id="res-total-net">$5,155.60</span>
-                        </div>
+                    <div class="w-full overflow-x-auto">
+                        <!-- Transposed Table -->
+                        <table class="min-w-full border-collapse">
+                            <thead>
+                                <tr class="text-lg font-bold text-gray-700 tracking-wider text-center">
+                                    <th class="p-3 border-b w-1/4 text-left"></th> <!-- Empty corner -->
+                                    <th class="p-3 border-b w-1/4">Rust Protection</th>
+                                    <th class="p-3 border-b w-1/4">Tire & Rim</th>
+                                    <th class="p-3 border-b w-1/4">Warranty</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-sm">
+                                <!-- Premium Cost Row -->
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-700 border-b">Premium Cost</td>
+                                    <td class="p-3 border-b">
+                                        <input type="number" id="rustCost" value="1259" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                    <td class="p-3 border-b">
+                                        <input type="number" id="tireCost" value="1059" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                    <td class="p-3 border-b">
+                                        <input type="number" id="warrantyCost" value="3533" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                </tr>
+                                <!-- Discount Row -->
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-700 border-b">Discount</td>
+                                    <td class="p-3 border-b">
+                                        <input type="number" id="rustDisc" value="377.7" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                    <td class="p-3 border-b">
+                                        <input type="number" id="tireDisc" value="317.7" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                    <td class="p-3 border-b">
+                                        <input type="number" id="warrantyDisc" value="0" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                </tr>
+                                <!-- Net Price Row (Matched Style) -->
+                                <tr class="bg-gray-50">
+                                    <td class="p-3 font-bold text-gray-900 border-b">Net Price</td>
+                                    <td class="p-3 text-center border-b">
+                                        <span class="text-lg font-bold text-green-700 block" id="res-rust-net">$881.30</span>
+                                    </td>
+                                    <td class="p-3 text-center border-b">
+                                        <span class="text-lg font-bold text-green-700 block" id="res-tire-net">$741.30</span>
+                                    </td>
+                                    <td class="p-3 text-center border-b">
+                                        <span class="text-lg font-bold text-green-700 block" id="res-warranty-net">$3,533.00</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Total Bar (Align Left, Large Font) -->
+                    <div class="mt-6 flex justify-start items-center text-gray-700 px-2 border-t pt-4">
+                        <span class="text-lg font-bold mr-3">C. Total Net Price of All Items:</span>
+                        <span class="text-lg font-bold text-indigo-700" id="res-total-net">$5,155.60</span>
                     </div>
                 </div>
             </section>
 
-            <!-- D. Cert Discount Calculator (Revamped Layout) -->
+            <!-- D. Cert Discount Calculator (Enlarged Province) -->
             <section class="bg-white rounded-lg shadow overflow-hidden mb-12">
                 <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
                     <h2 class="text-lg font-bold text-indigo-700">D. Cert Discount Calculator</h2>
                 </div>
                 <div class="p-6 space-y-6">
                     
-                    <!-- Province Selector -->
-                    <div class="w-full md:w-1/3">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Province (HST Tax Rules)</label>
-                        <select id="provinceSelect" class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-yellow-50">
+                    <!-- Province Selector (Enlarged) -->
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-lg font-bold text-gray-700 mb-2">Province (HST Tax Rules)</label>
+                        <select id="provinceSelect" class="block w-full pl-4 pr-10 py-3 text-lg border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 rounded-md bg-yellow-50 font-medium">
                             <option value="ON">ON (Ontario)</option>
                             <option value="NS">NS (Nova Scotia)</option>
                             <option value="NB">NB (New Brunswick)</option>
                         </select>
                     </div>
 
-                    <!-- Table-based Calculation Grid (Like Section C) -->
+                    <!-- Table-based Calculation Grid -->
                     <div class="w-full overflow-x-auto">
                         <table class="min-w-full table-fixed">
                             <thead>
-                                <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-100">
-                                    <th class="pb-3 text-left w-1/4">Item</th>
+                                <tr class="text-lg font-bold text-gray-700 tracking-wider border-b border-gray-100">
+                                    <th class="pb-3 text-left w-1/4 text-xs uppercase">Item</th> <!-- Item label kept small -->
                                     <th class="pb-3 text-center w-1/3">
                                         Warranty
                                     </th>
@@ -368,7 +367,7 @@
             </section>
         </div>
 
-        <!-- === PAGE 2: LENDER REQUIREMENT (Emerald Theme) === -->
+        <!-- === PAGE 2: LENDER REQUIREMENT === -->
         <div id="view-lender" class="hidden-section space-y-8">
             <section class="bg-white rounded-lg shadow overflow-hidden min-h-[600px]">
                 <div class="border-b border-gray-200 bg-emerald-50 px-6 py-4">
@@ -513,7 +512,7 @@
             </section>
         </div>
 
-        <!-- === PAGE 3: FRAUDULENT DOCUMENT (Rose Theme) === -->
+        <!-- === PAGE 3: FRAUDULENT DOCUMENT === -->
         <div id="view-fraud" class="hidden-section">
              <section class="bg-white rounded-lg shadow overflow-hidden">
                 <div class="border-b border-gray-200 bg-rose-50 px-6 py-4">
@@ -560,31 +559,46 @@
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                            <!-- Fake Examples -->
+                            
+                            <!-- Front of DL Gallery -->
                             <div class="space-y-4">
-                                <h4 class="font-bold text-gray-800 border-b pb-2">❌ Fraudulent Examples</h4>
-                                <div class="w-full h-48 bg-gray-100 rounded-lg overflow-hidden border border-red-200 relative">
-                                    <div class="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 font-bold">FAKE</div>
-                                    <img src="https://placehold.co/600x400/fee2e2/991b1b?text=PDF+Page+2:+Fake+DL+(Hologram+Too+Clear)" alt="Fake DL" class="object-cover w-full h-full">
+                                <h4 class="font-bold text-gray-800 border-b pb-2">Front of DL Samples</h4>
+                                <div class="flex overflow-x-auto space-x-4 pb-4 no-scrollbar snap-x snap-mandatory bg-gray-50 p-2 rounded-xl shadow-inner border border-gray-200">
+                                    <!-- Image 1 -->
+                                    <div class="flex-shrink-0 w-64 h-40 bg-white rounded-lg shadow border border-gray-300 overflow-hidden snap-center">
+                                        <img src="image (18).jpg" alt="DL Sample 1" class="w-full h-full object-cover">
+                                    </div>
+                                    <!-- Image 2 -->
+                                    <div class="flex-shrink-0 w-64 h-40 bg-white rounded-lg shadow border border-gray-300 overflow-hidden snap-center">
+                                        <img src="image (19).jpg" alt="DL Sample 2" class="w-full h-full object-cover">
+                                    </div>
+                                    <!-- Image 3 -->
+                                    <div class="flex-shrink-0 w-64 h-40 bg-white rounded-lg shadow border border-gray-300 overflow-hidden snap-center">
+                                        <img src="image (15).jpg" alt="DL Sample 3" class="w-full h-full object-cover">
+                                    </div>
+                                    <!-- Image 4 -->
+                                    <div class="flex-shrink-0 w-64 h-40 bg-white rounded-lg shadow border border-gray-300 overflow-hidden snap-center">
+                                        <img src="image (17).jpg" alt="DL Sample 4" class="w-full h-full object-cover">
+                                    </div>
+                                    <!-- Image 5 -->
+                                    <div class="flex-shrink-0 w-64 h-40 bg-white rounded-lg shadow border border-gray-300 overflow-hidden snap-center">
+                                        <img src="image (16).jpg" alt="DL Sample 5" class="w-full h-full object-cover">
+                                    </div>
                                 </div>
-                                <p class="text-sm text-red-600 font-medium">🚩 Hologram is too clear/visible. Background pattern is not clear.</p>
+                                <p class="text-sm text-gray-500 italic">Scroll horizontally to view more samples.</p>
                             </div>
 
-                            <!-- Barcode Comparison -->
+                            <!-- Back of DL -->
                             <div class="space-y-4">
-                                <h4 class="font-bold text-gray-800 border-b pb-2">🔍 Barcode & Numbers</h4>
-                                <div class="grid grid-rows-2 gap-4 h-full">
-                                     <div class="w-full h-24 bg-gray-100 rounded border border-green-200 relative overflow-hidden">
-                                        <div class="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 font-bold">REAL</div>
-                                        <img src="https://placehold.co/600x200/dcfce7/166534?text=PDF+Page+2:+Real+Barcode+(Random+Pattern)" alt="Real Barcode" class="object-cover w-full h-full">
-                                    </div>
-                                    <div class="w-full h-24 bg-gray-100 rounded border border-red-200 relative overflow-hidden">
-                                        <div class="absolute top-0 left-0 bg-red-600 text-white text-xs px-2 py-1 font-bold">FAKE</div>
-                                        <img src="https://placehold.co/600x200/fee2e2/991b1b?text=PDF+Page+2:+Fake+Barcode+(Repeated+Pattern)" alt="Fake Barcode" class="object-cover w-full h-full">
-                                    </div>
+                                <h4 class="font-bold text-gray-800 border-b pb-2">Back of DL (Barcode Check)</h4>
+                                <div class="w-full bg-white rounded-lg shadow-md border border-gray-200 overflow-hidden">
+                                    <img src="image (20).png" alt="Back of DL Sample" class="w-full object-contain max-h-60">
                                 </div>
-                                <p class="text-sm text-gray-600"><strong>Note:</strong> Fake IDs often have repeated patterns in the barcode or numbers that are "zoomed in" without proper spacing.</p>
+                                <div class="bg-green-50 border-l-4 border-green-500 p-3 mt-2">
+                                    <p class="text-sm text-green-800 font-medium">✅ Valid Check: Numbers on the back should have proper spacing and the barcode should look random, not a repeated pattern.</p>
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
