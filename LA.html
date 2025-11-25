@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doc Gen Assistant</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        
+        /* Custom Input Style for Highlight */
+        .input-highlight {
+            background-color: #FFFDE7; /* Light Yellow */
+            transition: all 0.2s;
+        }
+        .input-highlight:focus {
+            background-color: #FFFFFF;
+            ring: 2px;
+            outline: none;
+            border-color: #6366F1; /* Indigo-500 */
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        
+        /* Hide number input arrows */
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { 
+            -webkit-appearance: none; 
+            margin: 0; 
+        }
+
+        /* Utility for hiding sections */
+        .hidden-section {
+            display: none;
+        }
+        
+        /* Base Nav Link Style */
+        .nav-link-base {
+            border-bottom-width: 2px;
+            border-color: transparent;
+            color: #6B7280; /* Gray-500 */
+            transition: all 0.3s ease;
+        }
+        .nav-link-base:hover {
+            border-color: #D1D5DB; /* Gray-300 */
+            color: #374151; /* Gray-700 */
+        }
+        
+        /* Active States (Injected via JS) */
+        .active-indigo {
+            border-color: #4F46E5 !important; /* Indigo-600 */
+            color: #4338ca !important; /* Indigo-700 */
+            font-weight: 600;
+        }
+        .active-emerald {
+            border-color: #10B981 !important; /* Emerald-500 */
+            color: #047857 !important; /* Emerald-700 */
+            font-weight: 600;
+        }
+        .active-rose {
+            border-color: #F43F5E !important; /* Rose-500 */
+            color: #BE123C !important; /* Rose-700 */
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <div class="flex-shrink-0 flex items-center">
+                        <!-- App Name Change -->
+                        <span class="text-indigo-600 font-bold text-xl tracking-tight">Doc Gen Assistant</span>
+                    </div>
+                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <!-- Tabs with Emojis -->
+                        <button onclick="switchTab('calculator')" id="nav-calculator" class="nav-link-base active-indigo inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
+                            🧮 Doc Gen Calculator
+                        </button>
+                        <button onclick="switchTab('lender')" id="nav-lender" class="nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
+                            🏦 Lender Requirement
+                        </button>
+                        <button onclick="switchTab('fraud')" id="nav-fraud" class="nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
+                            🕵️‍♀️ Fraudulent Document
+                        </button>
+                    </div>
+                </div>
+                <!-- Removed Welcome Agent -->
+                <div class="flex items-center">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+        
+        <!-- === PAGE 1: DOC GEN CALCULATOR (Indigo Theme) === -->
+        <div id="view-calculator" class="space-y-8">
+            
+            <!-- A. Cash Price Calculator -->
+            <section class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700">A. Cash Price Calculator</h2>
+                </div>
+                <div class="p-6 space-y-6">
+                    <!-- Inputs -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Cash Price</label>
+                            <div class="relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input type="number" id="cashPrice" value="20290" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-md sm:text-lg font-medium" placeholder="0.00">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Discount</label>
+                            <div class="relative rounded-md shadow-sm">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <span class="text-gray-500 sm:text-sm">$</span>
+                                </div>
+                                <input type="number" id="cashDiscount" value="0" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-md sm:text-lg font-medium" placeholder="0.00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Constants Info -->
+                    <div class="flex flex-wrap gap-4 text-sm text-gray-600 font-medium">
+                        <span class="bg-gray-100 px-3 py-1 rounded">Essential Package: $1,500.00</span>
+                        <span class="bg-gray-100 px-3 py-1 rounded">Admin Fee (NS): $899.00</span>
+                    </div>
+
+                    <!-- Results Table -->
+                    <div class="border rounded-lg overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-indigo-600 text-white">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Result Package</th>
+                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium uppercase tracking-wider">Cash Price on DT</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white divide-y divide-gray-200 font-medium">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">ON Basic Package</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-green-600" id="res-on-basic">$0.00</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">ON w/ Essential ($1,500)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-blue-600" id="res-on-ess">$0.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">NS Basic Package (+$899 Admin Fee)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-green-600" id="res-ns-basic">$0.00</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900">NS w/ Essential (+$1,500 Pkg + $899 Admin)</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-blue-600" id="res-ns-ess">$0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- B. Number of Payments Calculation -->
+            <section class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700">B. Number of Payments Calculation</h2>
+                </div>
+                <div class="p-6">
+                    <div class="flex flex-col md:flex-row gap-8 items-center">
+                        <div class="w-full md:w-1/3">
+                            <label class="block text-sm font-bold text-gray-700 mb-2 uppercase tracking-wide">Term In Months</label>
+                            <input type="number" id="termMonths" value="84" class="input-highlight text-center block w-full px-4 py-4 border-gray-300 rounded-lg text-2xl font-bold text-gray-900 shadow-sm" placeholder="0">
+                        </div>
+                        
+                        <div class="w-full md:w-2/3 grid grid-cols-2 gap-4">
+                            <div class="bg-purple-50 rounded-lg p-4 text-center border border-purple-100">
+                                <span class="block text-xs font-bold text-purple-600 uppercase mb-1">Bi-Weekly</span>
+                                <span class="block text-4xl font-extrabold text-purple-900" id="res-biweekly">0</span>
+                            </div>
+                            <div class="bg-purple-50 rounded-lg p-4 text-center border border-purple-100">
+                                <span class="block text-xs font-bold text-purple-600 uppercase mb-1">Weekly</span>
+                                <span class="block text-4xl font-extrabold text-purple-900" id="res-weekly">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- C. Package Net Price -->
+            <section class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="border-b border-gray-200 bg-gray-50 px-6 py-4 flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-indigo-700">C. Package Net Price (After Discount)</h2>
+                    <span class="text-xs text-gray-400">Values update automatically</span>
+                </div>
+                <div class="p-6">
+                    <div class="w-full">
+                        <!-- Table Area -->
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full">
+                                <thead>
+                                    <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                                        <th class="pb-3 text-left w-1/4">Item</th>
+                                        <th class="pb-3 text-center w-1/4">Premium Cost</th>
+                                        <th class="pb-3 text-center w-1/4">Discount</th>
+                                        <th class="pb-3 text-right w-1/4">Net Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-gray-100 text-sm">
+                                    <!-- Warranty -->
+                                    <tr>
+                                        <td class="py-4 font-medium text-gray-900">Warranty</td>
+                                        <td class="py-4 px-2">
+                                            <input type="number" id="warrantyCost" value="3533" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                        </td>
+                                        <td class="py-4 px-2">
+                                            <input type="number" id="warrantyDisc" value="0" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                        </td>
+                                        <td class="py-4 text-right font-bold text-red-600" id="res-warranty-net">$3,533.00</td>
+                                    </tr>
+                                    <!-- Rust -->
+                                    <tr>
+                                        <td class="py-4 font-medium text-gray-900">Rust Protection</td>
+                                        <td class="py-4 px-2">
+                                            <input type="number" id="rustCost" value="1259" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                        </td>
+                                        <td class="py-4 px-2">
+                                            <input type="number" id="rustDisc" value="377.7" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                        </td>
+                                        <td class="py-4 text-right font-bold text-red-600" id="res-rust-net">$881.30</td>
+                                    </tr>
+                                    <!-- Tire & Rim -->
+                                    <tr>
+                                        <td class="py-4 font-medium text-gray-900">Tire & Rim Protection</td>
+                                        <td class="py-4 px-2">
+                                            <input type="number" id="tireCost" value="1059" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                        </td>
+                                        <td class="py-4 px-2">
+                                            <input type="number" id="tireDisc" value="317.7" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                        </td>
+                                        <td class="py-4 text-right font-bold text-red-600" id="res-tire-net">$741.30</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Total Bar -->
+                        <div class="mt-6 bg-red-50 rounded-lg p-4 flex justify-between items-center border border-red-100">
+                            <span class="text-red-800 font-bold">C. Total Net Price of All Items</span>
+                            <span class="text-2xl font-black text-red-900" id="res-total-net">$5,155.60</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- D. Cert Discount Calculator -->
+            <section class="bg-white rounded-lg shadow overflow-hidden mb-12">
+                <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700">D. Cert Discount Calculator</h2>
+                </div>
+                <div class="p-6 space-y-6">
+                    
+                    <!-- Province Selector -->
+                    <div class="w-full md:w-1/3">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Province (HST Tax Rules)</label>
+                        <select id="provinceSelect" class="block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-yellow-50">
+                            <option value="ON">ON (Ontario)</option>
+                            <option value="NS">NS (Nova Scotia)</option>
+                            <option value="NB">NB (New Brunswick)</option>
+                        </select>
+                    </div>
+
+                    <!-- Calculation Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                        
+                        <!-- Headers -->
+                        <div class="md:col-span-2 grid grid-cols-2 gap-12 border-b border-gray-200 pb-2 items-center">
+                            <div class="text-center text-sm font-bold text-indigo-900 uppercase tracking-wide">Warranty Calculation</div>
+                            
+                            <!-- Right Header: Text or Dropdown -->
+                            <div class="text-center">
+                                <!-- Label for ON -->
+                                <span id="gapHeaderLabel" class="text-sm font-bold text-indigo-900 uppercase tracking-wide">GAP Calculation</span>
+                                <!-- Dropdown for NS/NB -->
+                                <select id="gapTypeSelect" class="hidden w-full py-1 px-2 text-sm font-bold text-indigo-700 border border-indigo-200 rounded bg-indigo-50 focus:outline-none text-center cursor-pointer">
+                                    <option value="other">GAP (under Other Taxable)</option>
+                                    <option value="ah">GAP (under A/H Insurance)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Left Column: Warranty -->
+                        <div class="space-y-6">
+                            <!-- Inputs -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-800 mb-2">Original Price</label>
+                                <input type="number" id="warOrg" value="3000" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-800 mb-2">Price on Dealertrack</label>
+                                <input type="number" id="warDT" value="2500" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
+                            </div>
+                            <!-- Results -->
+                            <div class="space-y-3 pt-4 border-t border-gray-100">
+                                <div class="flex justify-between items-center bg-green-50 p-2 rounded">
+                                    <span class="text-sm font-medium text-gray-700">Admin Discount (w/ HST)</span>
+                                    <span class="font-bold text-green-700 text-lg" id="warAdminDisc">$0.00</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-blue-50 p-2 rounded">
+                                    <span class="text-sm font-medium text-gray-700">iA Discount (excl. HST)</span>
+                                    <span class="font-bold text-blue-700 text-lg" id="warIaDisc">$0.00</span>
+                                </div>
+                                <!-- Tax Rate -->
+                                <div class="text-right text-xs text-gray-400 mt-2">
+                                    Tax Rate: <span id="warTaxDisplay">13%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Column: GAP -->
+                        <div class="space-y-6 border-l border-gray-100 pl-12 md:pl-0 md:border-l-0">
+                            <!-- Inputs -->
+                            <div>
+                                <label class="block text-sm font-bold text-gray-800 mb-2">Original Price</label>
+                                <input type="number" id="gapOrg" value="3000" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-800 mb-2">Price on Dealertrack</label>
+                                <input type="number" id="gapDT" value="2800" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
+                            </div>
+                            <!-- Results -->
+                            <div class="space-y-3 pt-4 border-t border-gray-100">
+                                <div class="flex justify-between items-center bg-green-50 p-2 rounded">
+                                    <span class="text-sm font-medium text-gray-700">Admin Discount (w/ HST)</span>
+                                    <span class="font-bold text-green-700 text-lg" id="gapAdminDisc">$0.00</span>
+                                </div>
+                                <div class="flex justify-between items-center bg-blue-50 p-2 rounded">
+                                    <span class="text-sm font-medium text-gray-700">iA Discount (excl. HST)</span>
+                                    <span class="font-bold text-blue-700 text-lg" id="gapIaDisc">$0.00</span>
+                                </div>
+                                <!-- Tax Rate -->
+                                <div class="text-right text-xs text-gray-400 mt-2">
+                                    Tax Rate: <span id="gapTaxDisplay">8%</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- === PAGE 2: LENDER REQUIREMENT (Emerald Theme) === -->
+        <div id="view-lender" class="hidden-section space-y-8">
+            <section class="bg-white rounded-lg shadow overflow-hidden min-h-[600px]">
+                <div class="border-b border-gray-200 bg-emerald-50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-emerald-700">Lender Requirement</h2>
+                </div>
+                <div class="p-6 space-y-6">
+                    
+                    <!-- Lender Selector -->
+                    <div class="w-full md:w-1/2">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Select Lender</label>
+                        <select id="lenderSelect" class="input-highlight block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-md">
+                            <option value="">-- Choose a Lender --</option>
+                            <optgroup label="Prime Lenders">
+                                <option value="CIBC">CIBC</option>
+                                <option value="NATIONAL BANK">NATIONAL BANK (BNC)</option>
+                                <option value="RBC">RBC</option>
+                                <option value="GENERAL BANK">GENERAL BANK (GB)</option>
+                                <option value="TD">TD</option>
+                                <option value="BNS">BNS (Scotiabank)</option>
+                            </optgroup>
+                            <optgroup label="Sub-Prime Lenders">
+                                <option value="Eden Park">Eden Park</option>
+                                <option value="Autocapital">Autocapital</option>
+                                <option value="iA">iA</option>
+                                <option value="Santander">Santander</option>
+                                <option value="SDA">SDA</option>
+                            </optgroup>
+                            <optgroup label="Sub-Prime (Pre-fund Required)">
+                                <option value="Lendcare">Lendcare</option>
+                                <option value="North Lake">North Lake</option>
+                            </optgroup>
+                        </select>
+                    </div>
+
+                    <!-- Lender Details Container -->
+                    <div id="lenderResult" class="hidden rounded-lg border p-6 transition-colors duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 id="lenderName" class="text-2xl font-bold text-gray-900">Lender Name</h3>
+                            <span id="lenderType" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white border">
+                                Type
+                            </span>
+                        </div>
+
+                        <!-- Signature Requirements (Moved Here) -->
+                        <div class="mb-6">
+                            <h4 class="text-sm font-bold text-gray-600 uppercase tracking-wide mb-2">FC Signature Required at</h4>
+                            <div id="signatureReq" class="p-3 bg-white rounded border border-gray-200 font-medium text-lg">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Documents List -->
+                        <div class="mb-6">
+                            <h4 class="text-sm font-bold text-gray-600 uppercase tracking-wide mb-2">Required Documents & Forms</h4>
+                            <ul id="lenderDocs" class="list-disc pl-5 space-y-1 text-gray-800 font-medium">
+                                <!-- Injected via JS -->
+                            </ul>
+                        </div>
+
+                        <hr class="border-gray-300 my-6">
+
+                        <!-- Name/ID Requirements (L1) -->
+                        <div class="mb-6">
+                            <h4 class="text-sm font-bold text-emerald-700 uppercase tracking-wide mb-2">Name / ID Requirements by Lender</h4>
+                            <div class="bg-gray-50 p-4 rounded border border-gray-200 space-y-3 text-sm">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-500 uppercase">Middle Name Required?</span>
+                                        <span id="l1-middle" class="font-medium text-gray-900">-</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-500 uppercase">Mononym Policy</span>
+                                        <span id="l1-mononym" class="font-medium text-gray-900">-</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-500 uppercase">Manual Changes Allowed?</span>
+                                        <span id="l1-manual" class="font-medium text-gray-900">-</span>
+                                    </div>
+                                    <div>
+                                        <span class="block text-xs font-bold text-gray-500 uppercase">Digital Signatures?</span>
+                                        <span id="l1-digital" class="font-medium text-gray-900">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Special Requirements (L2) -->
+                        <div class="mb-6">
+                            <h4 class="text-sm font-bold text-emerald-700 uppercase tracking-wide mb-2">Special Requirements</h4>
+                            <div class="bg-yellow-50 p-4 rounded border border-yellow-200 space-y-4 text-sm">
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 uppercase">IDs Accepted</span>
+                                    <span id="l2-ids" class="font-medium text-gray-900 block mt-1">-</span>
+                                </div>
+                                <div>
+                                    <span class="block text-xs font-bold text-gray-500 uppercase">Special Requirements</span>
+                                    <ul id="l2-special" class="list-disc pl-5 font-medium text-gray-900 mt-1 space-y-1">
+                                        <!-- Injected via JS -->
+                                    </ul>
+                                </div>
+                                <!-- Universal Special Rules -->
+                                <div class="pt-2 border-t border-yellow-200">
+                                    <span class="block text-xs font-bold text-gray-500 uppercase mb-1">General Rules</span>
+                                    <ul class="list-none space-y-1 text-gray-700">
+                                        <li class="flex items-start">
+                                            <span class="mr-2 text-emerald-500">✔</span>
+                                            DL exp date must be after 1st payment date
+                                        </li>
+                                        <li class="flex items-start">
+                                            <span class="mr-2 text-emerald-500">✔</span>
+                                            TEMP DL COPY cannot be used as trade-in ownership
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Prime Specific (Conditional) -->
+                        <div id="subPrimeWarning" class="hidden mt-4 bg-red-50 border-l-4 border-red-400 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <!-- Warning Icon -->
+                                    <span class="text-red-500 font-bold">⚠</span>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-bold text-red-800 uppercase">Sub-Prime Requirement</h3>
+                                    <div class="mt-1 text-sm text-red-700">
+                                        <p>Pink slip is not allowed for Proof of Insurance. <strong>Need full binder.</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Empty State -->
+                    <div id="lenderEmpty" class="text-center py-12 text-gray-400">
+                        <p>Please select a lender to view requirements.</p>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- === PAGE 3: FRAUDULENT DOCUMENT (Rose Theme) === -->
+        <div id="view-fraud" class="hidden-section">
+             <section class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="border-b border-gray-200 bg-rose-50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-rose-700">Fraudulent Document Detection Guide</h2>
+                </div>
+                <div class="p-6 space-y-12">
+                    
+                    <!-- 1. Digital Footprint -->
+                    <div class="flex flex-col md:flex-row gap-6">
+                        <div class="md:w-1/3">
+                            <div class="flex items-center mb-4">
+                                <div class="bg-rose-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">1</div>
+                                <h3 class="text-xl font-bold text-gray-900">Digital Document Properties</h3>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-4">
+                                Right-click the PDF file and check "Properties" or "Document Properties". 
+                                Blank fields or editing software names are major red flags.
+                            </p>
+                            <div class="bg-red-50 p-4 rounded border-l-4 border-red-500 mb-2">
+                                <span class="block font-bold text-red-700 text-sm">🚩 FAKE: Adobe Illustrator</span>
+                                <span class="text-xs text-red-600">Indicates the document was edited.</span>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded border-l-4 border-green-500">
+                                <span class="block font-bold text-green-700 text-sm">✅ REAL: OpenText Exstream</span>
+                                <span class="text-xs text-green-600">Standard enterprise software generation.</span>
+                            </div>
+                        </div>
+                        <div class="md:w-2/3">
+                            <!-- Image Placeholder -->
+                            <div class="w-full h-64 bg-gray-100 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center overflow-hidden">
+                                <img src="https://placehold.co/800x400/f3f4f6/6b7280?text=PDF+Page+1:+Document+Properties+Screenshot" alt="Document Properties Screenshot" class="object-cover w-full h-full opacity-75">
+                            </div>
+                            <p class="text-center text-xs text-gray-400 mt-2">Figure 1.1: Comparing PDF Metadata</p>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-200">
+
+                    <!-- 2. Driver's License -->
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="bg-rose-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">2</div>
+                            <h3 class="text-xl font-bold text-gray-900">Driver's License (DL) Validation</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <!-- Fake Examples -->
+                            <div class="space-y-4">
+                                <h4 class="font-bold text-gray-800 border-b pb-2">❌ Fraudulent Examples</h4>
+                                <div class="w-full h-48 bg-gray-100 rounded-lg overflow-hidden border border-red-200 relative">
+                                    <div class="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 font-bold">FAKE</div>
+                                    <img src="https://placehold.co/600x400/fee2e2/991b1b?text=PDF+Page+2:+Fake+DL+(Hologram+Too+Clear)" alt="Fake DL" class="object-cover w-full h-full">
+                                </div>
+                                <p class="text-sm text-red-600 font-medium">🚩 Hologram is too clear/visible. Background pattern is not clear.</p>
+                            </div>
+
+                            <!-- Barcode Comparison -->
+                            <div class="space-y-4">
+                                <h4 class="font-bold text-gray-800 border-b pb-2">🔍 Barcode & Numbers</h4>
+                                <div class="grid grid-rows-2 gap-4 h-full">
+                                     <div class="w-full h-24 bg-gray-100 rounded border border-green-200 relative overflow-hidden">
+                                        <div class="absolute top-0 left-0 bg-green-600 text-white text-xs px-2 py-1 font-bold">REAL</div>
+                                        <img src="https://placehold.co/600x200/dcfce7/166534?text=PDF+Page+2:+Real+Barcode+(Random+Pattern)" alt="Real Barcode" class="object-cover w-full h-full">
+                                    </div>
+                                    <div class="w-full h-24 bg-gray-100 rounded border border-red-200 relative overflow-hidden">
+                                        <div class="absolute top-0 left-0 bg-red-600 text-white text-xs px-2 py-1 font-bold">FAKE</div>
+                                        <img src="https://placehold.co/600x200/fee2e2/991b1b?text=PDF+Page+2:+Fake+Barcode+(Repeated+Pattern)" alt="Fake Barcode" class="object-cover w-full h-full">
+                                    </div>
+                                </div>
+                                <p class="text-sm text-gray-600"><strong>Note:</strong> Fake IDs often have repeated patterns in the barcode or numbers that are "zoomed in" without proper spacing.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-200">
+
+                    <!-- 3. Insurance -->
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="bg-rose-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">3</div>
+                            <h3 class="text-xl font-bold text-gray-900">Insurance Policy Checks</h3>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Font Check -->
+                            <div class="bg-white p-4 border rounded-lg shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-2">Typography Check (TD Insurance)</h4>
+                                <div class="w-full h-40 bg-gray-50 mb-3 rounded overflow-hidden border border-gray-200">
+                                    <img src="https://placehold.co/500x300/f3f4f6/6b7280?text=PDF+Page+3:+TD+Insurance+Font+Comparison" alt="Font Comparison" class="object-cover w-full h-full">
+                                </div>
+                                <ul class="text-sm space-y-1">
+                                    <li class="flex items-start"><span class="mr-2">✅</span> TD Insurance uses <strong>Times New Roman</strong>.</li>
+                                    <li class="flex items-start text-red-600"><span class="mr-2">🚩</span> Sans-serif fonts on TD docs are fake.</li>
+                                </ul>
+                            </div>
+                            
+                            <!-- Policy Number -->
+                            <div class="bg-white p-4 border rounded-lg shadow-sm">
+                                <h4 class="font-bold text-gray-800 mb-2">Policy Number Validation</h4>
+                                <div class="w-full h-40 bg-gray-50 mb-3 rounded overflow-hidden border border-gray-200">
+                                    <img src="https://placehold.co/500x300/f3f4f6/6b7280?text=PDF+Page+3:+Fake+Policy+Num+(1000)" alt="Policy Number" class="object-cover w-full h-full">
+                                </div>
+                                <p class="text-sm text-gray-600">
+                                    <span class="font-bold text-red-600">🚩 Red Flag:</span> "1000" is not a valid policy number format. Look for realistic alphanumeric sequences (e.g., A000896090).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-200">
+
+                    <!-- 4. Void Cheques -->
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="bg-rose-600 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold mr-3">4</div>
+                            <h3 class="text-xl font-bold text-gray-900">Void Cheque Verification</h3>
+                        </div>
+
+                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <!-- Box Alignment -->
+                            <div class="md:col-span-1">
+                                <h4 class="font-bold text-gray-800 mb-3">Box Alignment Rule</h4>
+                                <div class="w-full h-32 bg-gray-100 rounded border border-red-200 mb-2 overflow-hidden relative">
+                                    <div class="absolute top-0 right-0 bg-red-600 text-white text-xs px-2 py-1 font-bold">FAKE</div>
+                                    <img src="https://placehold.co/400x300/fee2e2/991b1b?text=PDF+Page+5:+Misaligned+Numbers" alt="Misaligned Numbers" class="object-cover w-full h-full">
+                                </div>
+                                <p class="text-xs text-gray-500">Numbers must be perfectly centered in the boxes. Off-center numbers indicate editing.</p>
+                            </div>
+
+                            <!-- RBC Example -->
+                            <div class="md:col-span-1">
+                                <h4 class="font-bold text-gray-800 mb-3">RBC Specifics</h4>
+                                <div class="w-full h-32 bg-gray-100 rounded border border-gray-200 mb-2 overflow-hidden">
+                                     <img src="https://placehold.co/400x300/f3f4f6/6b7280?text=PDF+Page+4:+RBC+Void+Cheque+Example" alt="RBC Example" class="object-cover w-full h-full">
+                                </div>
+                                <p class="text-xs text-gray-500">RBC account numbers usually start with <strong>5</strong>. Void text is often grey/blue.</p>
+                            </div>
+
+                             <!-- Blurry vs Sharp -->
+                             <div class="md:col-span-1">
+                                <h4 class="font-bold text-gray-800 mb-3">Image Quality</h4>
+                                <div class="w-full h-32 bg-gray-100 rounded border border-gray-200 mb-2 flex items-center justify-center text-center p-2">
+                                     <span class="text-sm text-gray-400">Check if logo is blurry but text is super sharp</span>
+                                </div>
+                                <p class="text-xs text-gray-500"><strong>Inconsistent resolution</strong> between the bank logo and the customer name is a sign of a "copy-paste" fake.</p>
+                            </div>
+                         </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Logic Script -->
+    <script>
+        // === SPA Navigation Logic ===
+        function switchTab(tabId) {
+            // Hide all views
+            ['calculator', 'lender', 'fraud'].forEach(id => {
+                document.getElementById('view-' + id).classList.add('hidden-section');
+                // Reset button styles to base
+                const btn = document.getElementById('nav-' + id);
+                btn.className = 'nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none';
+            });
+
+            // Show selected view
+            document.getElementById('view-' + tabId).classList.remove('hidden-section');
+            
+            // Apply specific active class
+            const activeBtn = document.getElementById('nav-' + tabId);
+            // Remove base hover effects for cleaner active state
+            activeBtn.classList.remove('nav-link-base'); 
+            
+            // Add specific color class based on tab
+            if(tabId === 'calculator') {
+                activeBtn.classList.add('active-indigo', 'inline-flex', 'items-center', 'px-1', 'pt-1', 'text-sm', 'focus:outline-none');
+            } else if (tabId === 'lender') {
+                activeBtn.classList.add('active-emerald', 'inline-flex', 'items-center', 'px-1', 'pt-1', 'text-sm', 'focus:outline-none');
+            } else if (tabId === 'fraud') {
+                activeBtn.classList.add('active-rose', 'inline-flex', 'items-center', 'px-1', 'pt-1', 'text-sm', 'focus:outline-none');
+            }
+        }
+
+        // === Lender Data Database ===
+        const lenders = {
+            // Prime
+            "CIBC": { 
+                type: "Prime", 
+                bgClass: "bg-green-50", 
+                borderClass: "border-green-200",
+                signature: "Sign: P.9, 10",
+                docs: ["CIBC Conditional Sales Contract", "CIBC Credit Application"],
+                l1: { middle: "NO", mononym: "No First Name and names in last name field", manual: "Yes but not to name or VIN", digital: "YES" },
+                l2: { ids: "Provincial ID cards accepted", special: ["<span class='font-bold text-red-600'>2nd IDs required for mononyms</span>", "VC date with 5 yrs"] }
+            },
+            "NATIONAL BANK": { 
+                type: "Prime", 
+                bgClass: "bg-green-50", 
+                borderClass: "border-green-200",
+                signature: "Sign: P.12, 13, 16",
+                docs: ["Conditional Sales Agreement", "Additional required lender form(s)"],
+                l1: { middle: "NO", mononym: "Both names in both fields", manual: "Not allowed", digital: "Docusign Only" },
+                l2: { ids: "Provincial ID cards or Passports accepted for both apps", special: ["VC name must be 100% match DL", "NO COMPANY VC for personal deal", "Prefund deals need to be sent on docusign"] }
+            },
+            "RBC": { 
+                type: "Prime", 
+                bgClass: "bg-green-50", 
+                borderClass: "border-green-200",
+                signature: "Sign: P.13, 14",
+                docs: ["Credit Application", "Conditional Sales Contract"],
+                l1: { middle: "NO", mononym: "Nothing specific", manual: "Yes with initials", digital: "Docusign Only" },
+                l2: { ids: "<span class='font-bold text-red-600'>Not accepted Photo ID</span>", special: ["<span class='font-bold text-red-600'>International Passport NOT ACCEPTED</span>", "Prefund deals need to be sent on docusign"] }
+            },
+            "GENERAL BANK": { 
+                type: "Prime", 
+                bgClass: "bg-green-50", 
+                borderClass: "border-green-200",
+                signature: "Sign: P. 1, 10, 11",
+                docs: ["Client Identification", "Conditional Sales Contract", "Credit Application"],
+                l1: { middle: "NO", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
+                l2: { ids: "<span class='font-bold text-red-600'>2nd ID required for TEMP DL</span>", special: [] }
+            },
+            "TD": { 
+                type: "Prime", 
+                bgClass: "bg-green-50", 
+                borderClass: "border-green-200",
+                signature: "Sign: P.5",
+                docs: ["Client Identification Disclosure Form", "Conditional Sale Contract", "Credit Application"],
+                l1: { middle: "NO", mononym: "both names in both fields", manual: "Yes but only one correction per contract", digital: "YES" },
+                l2: { ids: "Provincial ID cards accepted", special: [] }
+            },
+            "BNS": { 
+                type: "Prime", 
+                bgClass: "bg-green-50", 
+                borderClass: "border-green-200",
+                signature: "Sign: P.4",
+                docs: ["Conditional Sales Contract", "Customer Identification Verification", "Scotiabank Credit Application"],
+                l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
+                l2: { ids: "<span class='font-bold text-red-600'>Not accepted Photo ID</span>", special: ["Only accept UTILITY BILL OR BANK STATEMENT as POR"] }
+            },
+            
+            // Sub-Prime
+            "Eden Park": { 
+                type: "Sub-Prime", 
+                bgClass: "bg-pink-50", 
+                borderClass: "border-pink-200",
+                signature: "Sign: P.9 (2 signatures)",
+                docs: ["Consumer Finance Contract", "Credit Application"],
+                l1: { middle: "YES", mononym: "Both names in both fields", manual: "Not allowed", digital: "YES" },
+                l2: { ids: "-", special: ["<span class='font-bold text-red-600'>Only accept Utility Bill as POR</span>"] }
+            },
+            "Autocapital": { 
+                type: "Sub-Prime", 
+                bgClass: "bg-pink-50", 
+                borderClass: "border-pink-200",
+                signature: "Sign Manually. NO Digital Sign",
+                docs: ["Application for Credit", "Loan Agreement"],
+                l1: { middle: "NO", mononym: "No First Name and names in last name field", manual: "Yes but not to name or VIN", digital: "YES" },
+                l2: { ids: "-", special: [] }
+            },
+            "iA": { 
+                type: "Sub-Prime", 
+                bgClass: "bg-pink-50", 
+                borderClass: "border-pink-200",
+                signature: "Sign: P.5",
+                docs: ["Conditional Sales Agreement", "Credit Application"],
+                l1: { middle: "NO", mononym: "Both names in both fields", manual: "Name and KM are allowed", digital: "YES" },
+                l2: { ids: "Main must be G2 or G license", special: ["Co-app can be ID cards or passport including international"] }
+            },
+            "Santander": { 
+                type: "Sub-Prime", 
+                bgClass: "bg-pink-50", 
+                borderClass: "border-pink-200",
+                signature: "Sign: P.11",
+                docs: ["Contract", "Credit Application", "Customer ID Form"],
+                l1: { middle: "-", mononym: "-", manual: "-", digital: "-" },
+                l2: { ids: "-", special: [] }
+            },
+            "SDA": { 
+                type: "Sub-Prime", 
+                bgClass: "bg-pink-50", 
+                borderClass: "border-pink-200",
+                signature: "Sign Manually. NO Digital Sign",
+                docs: ["Applicant's Statement", "Credit Agreement", "Customer Identification Verification Form", "Legal Name Verification (for East only)"],
+                l1: { middle: "YES", mononym: "both names in both fields", manual: "Customer and vehicle information only", digital: "YES" },
+                l2: { ids: "-", special: [] }
+            },
+
+            // Pre-fund
+            "Lendcare": { 
+                type: "Sub-Prime (Pre-fund Required)", 
+                bgClass: "bg-purple-50", 
+                borderClass: "border-purple-200",
+                signature: "Sign Manually. NO Digital Sign",
+                docs: ["Credit Agreement", "GPS Agreement (if Applicable)"],
+                l1: { middle: "YES", mononym: "-", manual: "Yes with initials", digital: "YES" },
+                l2: { ids: "Main must be G2 or G license, co can be ID cards", special: ["Not accept BMO Void Cheque"] }
+            },
+            "North Lake": { 
+                type: "Sub-Prime (Pre-fund Required)", 
+                bgClass: "bg-purple-50", 
+                borderClass: "border-purple-200",
+                signature: "Sign: P.1, 5",
+                docs: ["Asset Verification", "Conditional Sales Contract", "Consumer Credit Application", "Legal Name Disclosure (for East only)", "Disclosure Statement and Agreement for Installation (GPS)"],
+                l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes and encourage for minor changes", digital: "YES" },
+                l2: { ids: "Main must be G2 or G license", special: ["Co-app can be ID cards or passport including international"] }
+            }
+        };
+
+        // === Lender Selection Logic ===
+        const lenderSelect = document.getElementById('lenderSelect');
+        const lenderResult = document.getElementById('lenderResult');
+        const lenderEmpty = document.getElementById('lenderEmpty');
+
+        lenderSelect.addEventListener('change', function() {
+            const selected = this.value;
+            if (selected && lenders[selected]) {
+                const data = lenders[selected];
+                
+                // Show Result, Hide Empty
+                lenderResult.classList.remove('hidden');
+                lenderEmpty.classList.add('hidden');
+
+                // Update Content
+                document.getElementById('lenderName').textContent = selected;
+                
+                // Update Type Display Logic
+                const typeSpan = document.getElementById('lenderType');
+                typeSpan.textContent = data.type;
+                
+                // Reset classes first
+                typeSpan.className = "inline-flex items-center px-3 py-1 rounded-full bg-white border font-bold"; 
+                
+                // Add dynamic styling
+                if (data.type === "Prime") {
+                    typeSpan.classList.add("text-sm", "text-green-800", "border-green-200");
+                } else {
+                    typeSpan.classList.add("text-xl", "text-red-600", "border-red-200", "uppercase", "tracking-wide");
+                }
+                
+                // Update Container Classes
+                lenderResult.className = `rounded-lg border p-6 transition-colors duration-300 ${data.bgClass} ${data.borderClass}`;
+                
+                // 1. Signature Requirement
+                const sigDiv = document.getElementById('signatureReq');
+                sigDiv.textContent = data.signature || "N/A";
+                // Check if manual sign is required to style it red/bold
+                if (data.signature.includes("NO Digital Sign")) {
+                    sigDiv.className = "p-3 bg-white rounded border border-red-300 font-bold text-lg text-red-600";
+                } else {
+                    sigDiv.className = "p-3 bg-white rounded border border-gray-200 font-medium text-lg text-gray-800";
+                }
+
+                // 2. Docs List
+                const docsList = document.getElementById('lenderDocs');
+                docsList.innerHTML = '';
+                data.docs.forEach(doc => {
+                    const li = document.createElement('li');
+                    li.textContent = doc;
+                    docsList.appendChild(li);
+                });
+
+                // 3. L1 Data (Name/ID Requirements)
+                
+                // Middle Name Styling
+                const middleEl = document.getElementById('l1-middle');
+                middleEl.textContent = data.l1.middle || "-";
+                if (data.l1.middle === "YES") {
+                    middleEl.className = "font-bold text-red-600";
+                } else {
+                    middleEl.className = "font-medium text-gray-900";
+                }
+
+                // Mononym Styling
+                const mononymEl = document.getElementById('l1-mononym');
+                mononymEl.textContent = data.l1.mononym || "-";
+                if (data.l1.mononym && data.l1.mononym.includes("No First Name")) {
+                    mononymEl.className = "font-bold text-red-600";
+                } else {
+                    mononymEl.className = "font-medium text-gray-900";
+                }
+
+                document.getElementById('l1-manual').textContent = data.l1.manual || "-";
+                document.getElementById('l1-digital').textContent = data.l1.digital || "-";
+
+                // 4. L2 Data (Special Requirements)
+                document.getElementById('l2-ids').innerHTML = data.l2.ids || "-";
+                
+                const specialList = document.getElementById('l2-special');
+                specialList.innerHTML = '';
+                if (data.l2.special && data.l2.special.length > 0) {
+                    data.l2.special.forEach(item => {
+                        const li = document.createElement('li');
+                        li.innerHTML = item;
+                        specialList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = "None";
+                    li.className = "text-gray-400 italic list-none ml-[-20px]";
+                    specialList.appendChild(li);
+                }
+
+                // Sub-Prime Warning Logic
+                const warningBox = document.getElementById('subPrimeWarning');
+                if (data.type.includes("Sub-Prime")) {
+                    warningBox.classList.remove('hidden');
+                } else {
+                    warningBox.classList.add('hidden');
+                }
+
+            } else {
+                // Hide Result, Show Empty
+                lenderResult.classList.add('hidden');
+                lenderEmpty.classList.remove('hidden');
+            }
+        });
+
+        // === Calculator Logic (Previous) ===
+        const ESSENTIAL_PKG = 1500;
+        const NS_ADMIN_FEE = 899;
+
+        // --- Section A Logic ---
+        function calcSectionA() {
+            const price = parseFloat(document.getElementById('cashPrice').value) || 0;
+            const discount = parseFloat(document.getElementById('cashDiscount').value) || 0;
+
+            const basePrice = price - discount;
+            const onBasic = basePrice;
+            const onEss = basePrice + ESSENTIAL_PKG;
+            const nsBasic = basePrice + NS_ADMIN_FEE;
+            const nsEss = basePrice + ESSENTIAL_PKG + NS_ADMIN_FEE;
+
+            document.getElementById('res-on-basic').textContent = formatCurrency(onBasic);
+            document.getElementById('res-on-ess').textContent = formatCurrency(onEss);
+            document.getElementById('res-ns-basic').textContent = formatCurrency(nsBasic);
+            document.getElementById('res-ns-ess').textContent = formatCurrency(nsEss);
+        }
+
+        // --- Section B Logic ---
+        function calcSectionB() {
+            const term = parseFloat(document.getElementById('termMonths').value) || 0;
+            const biWeekly = Math.round((term * 26) / 12);
+            const weekly = Math.round((term * 26) / 6);
+            document.getElementById('res-biweekly').textContent = biWeekly;
+            document.getElementById('res-weekly').textContent = weekly;
+        }
+
+        // --- Section C Logic ---
+        function calcSectionC() {
+            const wCost = parseFloat(document.getElementById('warrantyCost').value) || 0;
+            const wDisc = parseFloat(document.getElementById('warrantyDisc').value) || 0;
+            const rCost = parseFloat(document.getElementById('rustCost').value) || 0;
+            const rDisc = parseFloat(document.getElementById('rustDisc').value) || 0;
+            const tCost = parseFloat(document.getElementById('tireCost').value) || 0;
+            const tDisc = parseFloat(document.getElementById('tireDisc').value) || 0;
+
+            const wNet = wCost - wDisc;
+            const rNet = rCost - rDisc;
+            const tNet = tCost - tDisc;
+            const totalNet = wNet + rNet + tNet;
+
+            document.getElementById('res-warranty-net').textContent = formatCurrency(wNet);
+            document.getElementById('res-rust-net').textContent = formatCurrency(rNet);
+            document.getElementById('res-tire-net').textContent = formatCurrency(tNet);
+            document.getElementById('res-total-net').textContent = formatCurrency(totalNet);
+        }
+
+        // --- Section D Logic ---
+        function calcSectionD() {
+            const province = document.getElementById('provinceSelect').value;
+            const gapType = document.getElementById('gapTypeSelect').value;
+            const gapLabel = document.getElementById('gapHeaderLabel');
+            const gapSelect = document.getElementById('gapTypeSelect');
+
+            let warTax = 0.13;
+            let gapTax = 0.08;
+            
+            if (province === 'ON') {
+                warTax = 0.13;
+                gapTax = 0.08;
+                gapLabel.classList.remove('hidden');
+                gapSelect.classList.add('hidden');
+            } else if (province === 'NS') {
+                warTax = 0.14;
+                gapTax = 0.14;
+                gapLabel.classList.add('hidden');
+                gapSelect.classList.remove('hidden');
+            } else if (province === 'NB') {
+                warTax = 0.15;
+                gapTax = 0.15;
+                gapLabel.classList.add('hidden');
+                gapSelect.classList.remove('hidden');
+            }
+
+            document.getElementById('warTaxDisplay').textContent = (warTax * 100).toFixed(0) + '%';
+            document.getElementById('gapTaxDisplay').textContent = (gapTax * 100).toFixed(0) + '%';
+
+            const wOrg = parseFloat(document.getElementById('warOrg').value) || 0;
+            const wDT = parseFloat(document.getElementById('warDT').value) || 0;
+            const gOrg = parseFloat(document.getElementById('gapOrg').value) || 0;
+            const gDT = parseFloat(document.getElementById('gapDT').value) || 0;
+
+            const wDiff = wOrg - wDT;
+            const wAdminDisc = wDiff * (1 + warTax);
+            const wIaDisc = wDiff; 
+            document.getElementById('warAdminDisc').textContent = formatCurrency(wAdminDisc);
+            document.getElementById('warIaDisc').textContent = formatCurrency(wIaDisc);
+
+            let gAdminDisc = 0;
+            let gIaDisc = 0;
+            let calcMethod = 'other'; 
+            if (province !== 'ON') {
+                calcMethod = gapType;
+            }
+
+            if (calcMethod === 'other') {
+                const gDiff = gOrg - gDT;
+                gAdminDisc = gDiff * (1 + gapTax);
+                gIaDisc = gDiff;
+            } else {
+                gAdminDisc = (gOrg * (1 + gapTax)) - gDT;
+                gIaDisc = gAdminDisc / (1 + gapTax);
+            }
+
+            document.getElementById('gapAdminDisc').textContent = formatCurrency(gAdminDisc);
+            document.getElementById('gapIaDisc').textContent = formatCurrency(gIaDisc);
+        }
+
+        function formatCurrency(val) {
+            return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(val);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // A
+            ['cashPrice', 'cashDiscount'].forEach(id => document.getElementById(id).addEventListener('input', calcSectionA));
+            calcSectionA();
+            // B
+            document.getElementById('termMonths').addEventListener('input', calcSectionB);
+            calcSectionB();
+            // C
+            ['warrantyCost', 'warrantyDisc', 'rustCost', 'rustDisc', 'tireCost', 'tireDisc'].forEach(id => document.getElementById(id).addEventListener('input', calcSectionC));
+            calcSectionC();
+            // D
+            ['provinceSelect', 'gapTypeSelect', 'warOrg', 'warDT', 'gapOrg', 'gapDT'].forEach(id => document.getElementById(id).addEventListener('input', calcSectionD));
+            calcSectionD();
+        });
+
+    </script>
+</body>
+</html>
