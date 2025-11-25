@@ -43,6 +43,7 @@
             border-color: transparent;
             color: #6B7280; /* Gray-500 */
             transition: all 0.3s ease;
+            white-space: nowrap; /* Prevent text wrapping */
         }
         .nav-link-base:hover {
             border-color: #D1D5DB; /* Gray-300 */
@@ -65,34 +66,52 @@
             color: #BE123C !important; /* Rose-700 */
             font-weight: 600;
         }
+
+        /* Hide scrollbar for horizontal scrolling on mobile */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-800 flex flex-col min-h-screen">
 
     <!-- Navigation -->
     <nav class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8"> <!-- Reduced padding on mobile -->
             <div class="flex justify-between h-16">
-                <div class="flex">
-                    <div class="flex-shrink-0 flex items-center">
-                        <!-- App Name Change -->
-                        <span class="text-indigo-600 font-bold text-xl tracking-tight">Doc Gen Assistant</span>
-                    </div>
-                    <div class="hidden sm:ml-6 sm:flex sm:space-x-8">
-                        <!-- Tabs with Emojis -->
+                <!-- Left side (Logo area if needed, kept empty for now) -->
+                <div class="flex-shrink-0 flex items-center w-0 sm:w-auto">
+                    <!-- Empty as requested -->
+                </div>
+
+                <!-- Center Tabs - Responsive Logic -->
+                <div class="flex-1 flex justify-center overflow-x-auto no-scrollbar">
+                    <div class="flex space-x-4 sm:space-x-8 h-full">
+                        <!-- Tabs with Emojis (Responsive Text) -->
                         <button onclick="switchTab('calculator')" id="nav-calculator" class="nav-link-base active-indigo inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
-                            🧮 Doc Gen Calculator
+                            <span>🧮</span>
+                            <span class="hidden sm:inline ml-2">Doc Gen Calculator</span>
+                            <span class="inline sm:hidden ml-1">Calculator</span> <!-- Short text for mobile -->
                         </button>
                         <button onclick="switchTab('lender')" id="nav-lender" class="nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
-                            🏦 Lender Requirement
+                            <span>🏦</span>
+                            <span class="hidden sm:inline ml-2">Lender Requirement</span>
+                            <span class="inline sm:hidden ml-1">Lender</span> <!-- Short text for mobile -->
                         </button>
                         <button onclick="switchTab('fraud')" id="nav-fraud" class="nav-link-base inline-flex items-center px-1 pt-1 text-sm font-medium focus:outline-none">
-                            🕵️‍♀️ Fraudulent Document
+                            <span>🕵️‍♀️</span>
+                            <span class="hidden sm:inline ml-2">Fraudulent Document</span>
+                            <span class="inline sm:hidden ml-1">Fraud Doc</span> <!-- Short text for mobile -->
                         </button>
                     </div>
                 </div>
-                <!-- Removed Welcome Agent -->
-                <div class="flex items-center">
+
+                <!-- Right side (User menu if needed, kept empty) -->
+                <div class="flex items-center w-0 sm:w-auto">
                 </div>
             </div>
         </div>
@@ -262,7 +281,7 @@
                 </div>
             </section>
 
-            <!-- D. Cert Discount Calculator -->
+            <!-- D. Cert Discount Calculator (Revamped Layout) -->
             <section class="bg-white rounded-lg shadow overflow-hidden mb-12">
                 <div class="border-b border-gray-200 bg-gray-50 px-6 py-4">
                     <h2 class="text-lg font-bold text-indigo-700">D. Cert Discount Calculator</h2>
@@ -279,82 +298,72 @@
                         </select>
                     </div>
 
-                    <!-- Calculation Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
-                        
-                        <!-- Headers -->
-                        <div class="md:col-span-2 grid grid-cols-2 gap-12 border-b border-gray-200 pb-2 items-center">
-                            <div class="text-center text-sm font-bold text-indigo-900 uppercase tracking-wide">Warranty Calculation</div>
-                            
-                            <!-- Right Header: Text or Dropdown -->
-                            <div class="text-center">
-                                <!-- Label for ON -->
-                                <span id="gapHeaderLabel" class="text-sm font-bold text-indigo-900 uppercase tracking-wide">GAP Calculation</span>
-                                <!-- Dropdown for NS/NB -->
-                                <select id="gapTypeSelect" class="hidden w-full py-1 px-2 text-sm font-bold text-indigo-700 border border-indigo-200 rounded bg-indigo-50 focus:outline-none text-center cursor-pointer">
-                                    <option value="other">GAP (under Other Taxable)</option>
-                                    <option value="ah">GAP (under A/H Insurance)</option>
-                                </select>
-                            </div>
-                        </div>
+                    <!-- Table-based Calculation Grid (Like Section C) -->
+                    <div class="w-full overflow-x-auto">
+                        <table class="min-w-full table-fixed">
+                            <thead>
+                                <tr class="text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-100">
+                                    <th class="pb-3 text-left w-1/4">Item</th>
+                                    <th class="pb-3 text-center w-1/3">
+                                        Warranty
+                                    </th>
+                                    <th class="pb-3 text-center w-1/3">
+                                        <!-- Dynamic Header for GAP -->
+                                        <span id="gapHeaderLabel" class="block">GAP</span>
+                                        <select id="gapTypeSelect" class="hidden w-full py-1 px-2 text-xs font-bold text-indigo-700 border border-indigo-200 rounded bg-indigo-50 focus:outline-none text-center cursor-pointer">
+                                            <option value="other">GAP (Other Taxable)</option>
+                                            <option value="ah">GAP (A/H Insurance)</option>
+                                        </select>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-sm">
+                                <!-- Original Price -->
+                                <tr>
+                                    <td class="py-3 font-medium text-gray-900">Original Price</td>
+                                    <td class="py-3 px-2">
+                                        <input type="number" id="warOrg" value="3000" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                    <td class="py-3 px-2">
+                                        <input type="number" id="gapOrg" value="3000" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                </tr>
+                                
+                                <!-- Dealertrack Price -->
+                                <tr>
+                                    <td class="py-3 font-medium text-gray-900">Dealertrack Price</td>
+                                    <td class="py-3 px-2">
+                                        <input type="number" id="warDT" value="2500" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                    <td class="py-3 px-2">
+                                        <input type="number" id="gapDT" value="2800" class="input-highlight w-full text-center py-2 border rounded border-gray-200" placeholder="0">
+                                    </td>
+                                </tr>
 
-                        <!-- Left Column: Warranty -->
-                        <div class="space-y-6">
-                            <!-- Inputs -->
-                            <div>
-                                <label class="block text-sm font-bold text-gray-800 mb-2">Original Price</label>
-                                <input type="number" id="warOrg" value="3000" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-800 mb-2">Price on Dealertrack</label>
-                                <input type="number" id="warDT" value="2500" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
-                            </div>
-                            <!-- Results -->
-                            <div class="space-y-3 pt-4 border-t border-gray-100">
-                                <div class="flex justify-between items-center bg-green-50 p-2 rounded">
-                                    <span class="text-sm font-medium text-gray-700">Admin Discount (w/ HST)</span>
-                                    <span class="font-bold text-green-700 text-lg" id="warAdminDisc">$0.00</span>
-                                </div>
-                                <div class="flex justify-between items-center bg-blue-50 p-2 rounded">
-                                    <span class="text-sm font-medium text-gray-700">iA Discount (excl. HST)</span>
-                                    <span class="font-bold text-blue-700 text-lg" id="warIaDisc">$0.00</span>
-                                </div>
-                                <!-- Tax Rate -->
-                                <div class="text-right text-xs text-gray-400 mt-2">
-                                    Tax Rate: <span id="warTaxDisplay">13%</span>
-                                </div>
-                            </div>
-                        </div>
+                                <!-- Tax Rate Row -->
+                                <tr class="bg-gray-50 text-xs text-gray-500">
+                                    <td class="py-2 font-medium">Current Tax Rate</td>
+                                    <td class="py-2 text-center font-bold text-indigo-600" id="warTaxDisplay">13%</td>
+                                    <td class="py-2 text-center font-bold text-indigo-600" id="gapTaxDisplay">8%</td>
+                                </tr>
 
-                        <!-- Right Column: GAP -->
-                        <div class="space-y-6 border-l border-gray-100 pl-12 md:pl-0 md:border-l-0">
-                            <!-- Inputs -->
-                            <div>
-                                <label class="block text-sm font-bold text-gray-800 mb-2">Original Price</label>
-                                <input type="number" id="gapOrg" value="3000" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-gray-800 mb-2">Price on Dealertrack</label>
-                                <input type="number" id="gapDT" value="2800" class="input-highlight block w-full py-3 px-4 border border-gray-300 rounded-md text-center text-xl font-semibold text-gray-900">
-                            </div>
-                            <!-- Results -->
-                            <div class="space-y-3 pt-4 border-t border-gray-100">
-                                <div class="flex justify-between items-center bg-green-50 p-2 rounded">
-                                    <span class="text-sm font-medium text-gray-700">Admin Discount (w/ HST)</span>
-                                    <span class="font-bold text-green-700 text-lg" id="gapAdminDisc">$0.00</span>
-                                </div>
-                                <div class="flex justify-between items-center bg-blue-50 p-2 rounded">
-                                    <span class="text-sm font-medium text-gray-700">iA Discount (excl. HST)</span>
-                                    <span class="font-bold text-blue-700 text-lg" id="gapIaDisc">$0.00</span>
-                                </div>
-                                <!-- Tax Rate -->
-                                <div class="text-right text-xs text-gray-400 mt-2">
-                                    Tax Rate: <span id="gapTaxDisplay">8%</span>
-                                </div>
-                            </div>
-                        </div>
+                                <!-- Results: Admin Discount -->
+                                <tr>
+                                    <td class="py-3 font-medium text-gray-700">Admin Discount <span class="text-xs text-gray-400 block">(w/ HST)</span></td>
+                                    <td class="py-3 text-center font-bold text-green-700 text-lg" id="warAdminDisc">$0.00</td>
+                                    <td class="py-3 text-center font-bold text-green-700 text-lg" id="gapAdminDisc">$0.00</td>
+                                </tr>
 
+                                <!-- Results: iA Discount -->
+                                <tr>
+                                    <td class="py-3 font-medium text-gray-700">iA Discount <span class="text-xs text-gray-400 block">(excl. HST)</span></td>
+                                    <td class="py-3 text-center font-bold text-blue-700 text-lg" id="warIaDisc">$0.00</td>
+                                    <td class="py-3 text-center font-bold text-blue-700 text-lg" id="gapIaDisc">$0.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+
                 </div>
             </section>
         </div>
