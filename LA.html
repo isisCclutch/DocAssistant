@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doc Gen Assistant</title>
+    <title>Doc Gen Calculator</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -189,7 +191,7 @@
                                     <th class="p-3 border-b w-1/4 text-left"></th>
                                     <th class="p-3 border-b w-1/4">Rust Protection</th>
                                     <th class="p-3 border-b w-1/4">Tire & Rim</th>
-                                    <th class="p-3 border-b w-1/4">Warranty</th>
+                                    <th class="p-3 border-b w-1/4">Other Cert</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm">
@@ -497,7 +499,13 @@
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["CIBC Conditional Sales Contract", "CIBC Credit Application"],
                 l1: { middle: "NO", mononym: "No First Name and names in last name field <br><span class='font-bold text-red-600'>2nd IDs required for mononyms</span>", manual: "Yes but not to name or VIN", digital: "YES" },
-                l2: { ids: "Provincial ID cards accepted", special: ["VC date with 5 yrs"] }
+                l2: { 
+                    ids: "Provincial ID cards accepted", 
+                    special: [
+                        "VC date with 5 yrs",
+                        "If they are employed by a U.S. employer they need to upload notice of assessment even if it’s not in the stipulations"
+                    ] 
+                }
             },
             "NATIONAL BANK": { 
                 type: "Prime", 
@@ -506,8 +514,20 @@
                 signature: "Sign: P.12, 13, 16",
                 prefund: "for PREFUND: Send via Docusign",
                 docs: ["Conditional Sales Agreement", "Additional required lender form(s)"],
-                l1: { middle: "NO", mononym: "Both names in both fields", manual: "Not allowed", digital: "Docusign Only" },
-                l2: { ids: "Provincial ID cards or Passports accepted for both apps", special: ["VC name must be 100% match DL", "NO COMPANY VC for personal deal", "Prefund deals need to be sent on docusign"] }
+                l1: { 
+                    middle: "NO", 
+                    mononym: "Both names in both fields", 
+                    manual: "<span class='text-red-600 font-bold'>Not allowed</span>", 
+                    digital: "<span class='text-red-600 font-bold'>Docusign Only</span>" 
+                },
+                l2: { 
+                    ids: "Provincial ID cards or Passports accepted for both apps", 
+                    special: [
+                        "VC name must be 100% match DL", 
+                        "NO COMPANY VC for personal deal"
+                        // Removed "Prefund deals need to be sent on docusign"
+                    ] 
+                }
             },
             "RBC": { 
                 type: "Prime", 
@@ -515,9 +535,28 @@
                 borderClass: "border-green-200",
                 signature: "Sign: P.13, 14",
                 prefund: "for PREFUND: Send via Docusign",
-                docs: ["Credit Application", "Conditional Sales Contract"],
-                l1: { middle: "NO", mononym: "Nothing specific", manual: "Yes with initials", digital: "Docusign Only" },
-                l2: { ids: "<span class='font-bold text-red-600'>Not accepted Photo ID (Unless exception granted)</span>", special: ["<span class='font-bold text-red-600'>International Passport NOT ACCEPTED</span>", "Prefund deals need to be sent on docusign"] }
+                docs: [
+                    "Credit Application", 
+                    "Conditional Sales Contract",
+                    "<span class='text-gray-400'>Authorized Signatory Form (business)</span>",
+                    "<span class='text-gray-400'>Corporate Resolution Form (business)</span>",
+                    "<span class='text-gray-400'>Customer Identification Verification (business)</span>"
+                ],
+                l1: { 
+                    middle: "NO", 
+                    mononym: "Nothing specific", 
+                    manual: "Yes with initials", 
+                    digital: "<span class='text-red-600 font-bold'>Docusign Only</span>" 
+                },
+                l2: { 
+                    ids: "<span class='font-bold text-red-600'>Not accepted Photo ID (Unless exception granted)</span>", 
+                    special: [
+                        "<span class='font-bold text-red-600'>International Passport NOT ACCEPTED</span>", 
+                        // Removed "Prefund deals need to be sent on docusign"
+                        "GAP needs to be in the GAP box on Dealertrack",
+                        "If name on void cheque doesn’t match FC, add bank account info on DT under Pre-Authorized Debit"
+                    ] 
+                }
             },
             "GENERAL BANK": { 
                 type: "Prime", 
@@ -527,7 +566,16 @@
                 // No prefund info provided
                 docs: ["Client Identification", "Conditional Sales Contract", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
-                l2: { ids: "<ul class='list-disc pl-4 text-red-600 font-bold'><li>2nd ID required for Temporary DL</li><li>At least one buyer has to have G2 or G</li></ul>", special: [] }
+                l2: { 
+                    ids: "<ul class='list-disc pl-4 text-red-600 font-bold'><li>2nd ID required for Temporary DL</li><li>At least one buyer has to have G2 or G</li></ul>", 
+                    special: [
+                        "<span class='text-red-600 font-bold'>2nd ID required for Temp ID. Not old DL</span>",
+                        "<strong>For Business Loans:</strong> Max 60 months on business loans",
+                        "<strong>For Business Loans:</strong> Cannot be solely under a business, needs the director to be co-buyer",
+                        "<strong>For Business Loans:</strong> Need 2 years Accountant-Prepared Corporate Financial Statements",
+                        "<strong>For Business Loans:</strong> Personal NOA’s for all Directors(s)"
+                    ] 
+                }
             },
             "TD": { 
                 type: "Prime", 
@@ -537,7 +585,13 @@
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["Client Identification Disclosure Form", "Conditional Sale Contract", "Credit Application"],
                 l1: { middle: "NO", mononym: "both names in both fields", manual: "Yes but only one correction per contract", digital: "YES" },
-                l2: { ids: "Provincial ID cards accepted", special: [] }
+                l2: { 
+                    ids: "Provincial ID cards accepted", 
+                    special: [
+                        "Picky about employer info, wants specific titles",
+                        "No. of payment minor 1 on BOS & FC"
+                    ] 
+                }
             },
             "BNS": { 
                 type: "Prime", 
@@ -545,9 +599,19 @@
                 borderClass: "border-green-200",
                 signature: "Sign: P.4",
                 prefund: "for PREFUND: Send in Admin",
-                docs: ["Conditional Sales Contract", "Customer Identification Verification", "Scotiabank Credit Application"],
+                docs: [
+                    "Conditional Sales Contract", 
+                    "Customer Identification Verification", 
+                    "Scotiabank Credit Application",
+                    "<span class='text-gray-400'>Business Resolution Form (for business deals)</span>"
+                ],
                 l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
-                l2: { ids: "Provincial ID cards accepted", special: ["<span class='font-bold text-red-600'>Only accept UTILITY BILL OR BANK STATEMENT as POR</span>"] }
+                l2: { 
+                    ids: "Provincial ID cards accepted", 
+                    special: [
+                        "Only accept <span class='font-bold text-red-600'>UTILITY BILL</span> OR <span class='font-bold text-red-600'>BANK STATEMENT</span> as POR"
+                    ] 
+                }
             },
             
             // Sub-Prime
@@ -558,8 +622,19 @@
                 signature: "Sign: P.9 (2 signatures)",
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["Consumer Finance Contract", "Credit Application"],
-                l1: { middle: "YES", mononym: "No duplicates", manual: "Not allowed", digital: "YES" },
-                l2: { ids: "Main must be G2 or G license", special: ["<span class='font-bold text-red-600'>Only accept Utility Bill as POR</span>"] },
+                l1: { 
+                    middle: "YES", 
+                    mononym: "No duplicates", 
+                    manual: "<span class='text-red-600 font-bold'>Not allowed</span>", 
+                    digital: "YES" 
+                },
+                l2: { 
+                    ids: "Main must be G2 or G license", 
+                    special: [
+                        "<span class='font-bold text-red-600'>Only accept Utility Bill as POR</span>",
+                        "GAP needs to be in “other-taxable”, not “A/H Insurance”"
+                    ] 
+                },
                 bonus: [
                     "$45,001 or higher - $750 bonus",
                     "$25,001-$45,000 - $600 bonus",
@@ -577,7 +652,13 @@
                 prefund: "for PREFUND: MANUAL SEND",
                 docs: ["Application for Credit", "Loan Agreement"],
                 l1: { middle: "NO", mononym: "No First Name and names in last name field", manual: "Yes but not to name or VIN", digital: "YES" },
-                l2: { ids: "Main must be G2 or G license", special: [] }
+                l2: { 
+                    ids: "Main must be G2 or G license", 
+                    special: [
+                        "Most likely will have a cap on GAP price (usually $2k max) - check standard stipulation",
+                        "Check <span class='text-red-600 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 font-bold'>over $7,500</span> flag advisor"
+                    ] 
+                }
             },
             "iA": { 
                 type: "Sub-Prime", 
@@ -587,7 +668,13 @@
                 // No prefund info provided
                 docs: ["Conditional Sales Agreement", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Name and KM are allowed", digital: "YES" },
-                l2: { ids: "Main must be G2 or G license", special: ["Co-app can be ID cards or passport including international"] }
+                l2: { 
+                    ids: "Main must be G2 or G license", 
+                    special: [
+                        "Co-app can be ID cards or passport including international",
+                        "Check <span class='text-red-600 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 font-bold'>over $7,500</span> flag advisor"
+                    ] 
+                }
             },
             "Santander": { 
                 type: "Sub-Prime", 
@@ -607,7 +694,12 @@
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["Applicant's Statement", "Credit Agreement", "Customer Identification Verification Form", "Legal Name Verification (for East only)"],
                 l1: { middle: "YES", mononym: "both names in both fields", manual: "Customer and vehicle information only", digital: "YES" },
-                l2: { ids: "-", special: [] }
+                l2: { 
+                    ids: "-", 
+                    special: [
+                        "Check <span class='text-red-600 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 font-bold'>over $7,500</span> flag advisor"
+                    ] 
+                }
             },
 
             // Pre-fund
@@ -619,7 +711,13 @@
                 prefund: "for PREFUND: MANUAL SEND",
                 docs: ["Credit Agreement", "GPS Agreement (if Applicable)"],
                 l1: { middle: "YES", mononym: "-", manual: "Yes with initials", digital: "YES" },
-                l2: { ids: "<ul class='list-disc pl-4'><li>Main must be G2 or G license</li><li>Co-app can be ID cards</li></ul>", special: ["<span class='font-bold text-red-600'>Not accept BMO Void Cheque</span>"] },
+                l2: { 
+                    ids: "<ul class='list-disc pl-4'><li>Main must be G2 or G license</li><li>Co-app can be ID cards</li></ul>", 
+                    special: [
+                        "<span class='font-bold text-red-600'>Not accept BMO Void Cheque</span>",
+                        "Insurance must show LendCare Capital as lienholder (exemption BC/MB will not show -LendCare as lienholders)"
+                    ] 
+                },
                 bonus: [
                     "11.9% - 25.9% - $799 bonus",
                     "26.9% - 28.9% - $599 bonus",
@@ -715,8 +813,11 @@
                 middleEl.textContent = data.l1.middle || "-";
                 middleEl.className = data.l1.middle === "YES" ? "px-4 py-3 text-red-600 font-bold w-2/3" : "px-4 py-3 text-gray-900 w-2/3";
 
-                document.getElementById('row-manual').textContent = data.l1.manual || "-";
-                document.getElementById('row-digital').textContent = data.l1.digital || "-";
+                // Manual Changes - ALLOW HTML
+                document.getElementById('row-manual').innerHTML = data.l1.manual || "-";
+                
+                // Digital Signatures - ALLOW HTML
+                document.getElementById('row-digital').innerHTML = data.l1.digital || "-";
 
                 // Mononym
                 const mononymEl = document.getElementById('row-mononym');
@@ -842,16 +943,21 @@
                 warTax = 0.13;
                 gapTax = 0.08;
                 gapLabel.classList.remove('hidden');
+                // UPDATED: Change label text specifically for ON
+                gapLabel.textContent = "GAP (under A/H)";
                 gapSelect.classList.add('hidden');
             } else if (province === 'NS') {
                 warTax = 0.14;
                 gapTax = 0.14;
                 gapLabel.classList.add('hidden');
+                // Reset label text for others (though hidden)
+                gapLabel.textContent = "GAP"; 
                 gapSelect.classList.remove('hidden');
             } else if (province === 'NB') {
                 warTax = 0.15;
                 gapTax = 0.15;
                 gapLabel.classList.add('hidden');
+                gapLabel.textContent = "GAP"; 
                 gapSelect.classList.remove('hidden');
             }
 
