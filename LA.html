@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,23 +7,51 @@
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📝</text></svg>">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            bg: '#111827',
+                            card: '#1F2937',
+                            border: '#374151',
+                            text: '#F9FAFB',
+                            input: '#374151'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
         
         /* Custom Input Style for Highlight */
         .input-highlight {
             background-color: #FFFDE7; /* Light Yellow */
             transition: all 0.2s;
         }
+        .dark .input-highlight {
+            background-color: #422006;
+            color: #FEF3C7;
+            border-color: #4B5563;
+        }
+
         .input-highlight:focus {
             background-color: #FFFFFF;
             ring: 2px;
             outline: none;
-            border-color: #6366F1; /* Indigo-500 */
+            border-color: #6366F1;
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+        .dark .input-highlight:focus {
+            background-color: #374151;
+            color: white;
         }
         
         /* Hide number input arrows */
@@ -33,28 +61,17 @@
             margin: 0; 
         }
 
-        /* Utility for hiding sections */
-        .hidden-section {
-            display: none;
-        }
-
-        /* Hide scrollbar */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+        .hidden-section { display: none; }
 
         /* Segmented Control Styles */
         .segmented-control {
-            background-color: #E5E7EB; /* Gray-200 */
+            background-color: #E5E7EB;
             padding: 0.25rem;
             border-radius: 0.75rem;
             display: inline-flex;
             position: relative;
         }
+        .dark .segmented-control { background-color: #374151; }
         
         .segment-btn {
             position: relative;
@@ -63,28 +80,53 @@
             border-radius: 0.5rem;
             font-weight: 600;
             font-size: 0.875rem;
-            color: #6B7280; /* Gray-500 */
+            color: #6B7280;
             transition: all 0.2s ease;
             white-space: nowrap;
         }
+        .dark .segment-btn { color: #9CA3AF; }
 
-        .segment-btn:hover {
-            color: #374151;
-        }
+        .segment-btn:hover { color: #374151; }
+        .dark .segment-btn:hover { color: #E5E7EB; }
 
-        /* Active State Classes (Applied via JS) */
         .segment-active {
             background-color: white;
-            color: #111827 !important; /* Gray-900 */
+            color: #111827 !important;
             box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+        }
+        .dark .segment-active {
+            background-color: #111827;
+            color: #F3F4F6 !important;
+        }
+
+        /* FIXED STICKY HEADER CSS 
+           Note: The 'top' value must match the height of the navbar + some padding 
+        */
+        .sticky-lender {
+            position: sticky;
+            top: 73px; /* Adjusted to sit exactly under the navbar */
+            z-index: 40;
+            background-color: inherit; /* Inherits white/dark from parent section */
+            
+            /* Visual styling to make it look like a seamless bar */
+            margin-left: -1.5rem; /* Negate parent padding */
+            margin-right: -1.5rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); /* Subtle shadow for depth */
+        }
+        .dark .sticky-lender {
+            border-color: #374151;
         }
     </style>
 </head>
-<body class="text-gray-800 flex flex-col min-h-screen">
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex flex-col min-h-screen">
 
-    <nav class="bg-white sticky top-0 z-50 pt-4 pb-4 px-4 shadow-sm border-b border-gray-200">
-        <div class="max-w-5xl mx-auto flex flex-col items-center justify-center">
-            
+    <nav class="bg-white dark:bg-gray-800 sticky top-0 z-50 pt-4 pb-4 px-4 shadow-sm border-b border-gray-200 dark:border-gray-700 h-[74px]">
+        <div class="max-w-5xl mx-auto flex items-center justify-between">
+            <div class="w-10"></div>
             <div class="segmented-control shadow-inner">
                 <button onclick="switchTab('calculator')" id="nav-calculator" class="segment-btn segment-active flex items-center">
                     <span class="mr-2">🧮</span> Doc Gen Calculator
@@ -93,59 +135,60 @@
                     <span class="mr-2">🏦</span> Lender Requirement
                 </button>
             </div>
-
+            <button onclick="toggleDarkMode()" class="w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-yellow-400 shadow-sm">
+                <i id="theme-icon" class="fas fa-moon"></i>
+            </button>
         </div>
     </nav>
 
     <main class="flex-grow max-w-5xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8 space-y-8">
         
         <div id="view-calculator" class="space-y-8">
-            
-            <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                    <h2 class="text-lg font-bold text-indigo-700">A. Cash Price Calculator</h2>
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">A. Cash Price Calculator</h2>
                 </div>
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Cash Price</label>
+                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Cash Price</label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-400 sm:text-lg">$</span>
                                 </div>
-                                <input type="number" id="cashPrice" value="20290" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-lg text-2xl font-bold text-gray-900" placeholder="0.00">
+                                <input type="number" id="cashPrice" value="20290" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 dark:border-gray-600 rounded-lg text-2xl font-bold text-gray-900 dark:text-white" placeholder="0.00">
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-1">Discount</label>
+                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Discount</label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-400 sm:text-lg">$</span>
                                 </div>
-                                <input type="number" id="cashDiscount" value="0" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 rounded-lg text-2xl font-bold text-gray-900" placeholder="0.00">
+                                <input type="number" id="cashDiscount" value="0" class="input-highlight block w-full pl-7 pr-3 py-3 border-gray-300 dark:border-gray-600 rounded-lg text-2xl font-bold text-gray-900 dark:text-white" placeholder="0.00">
                             </div>
                         </div>
                     </div>
 
-                    <div class="border rounded-lg overflow-hidden">
-                        <table class="min-w-full divide-y divide-gray-200 border-collapse">
+                    <div class="border dark:border-gray-700 rounded-lg overflow-hidden">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 border-collapse">
                             <thead>
                                 <tr>
-                                    <th class="px-4 py-3 bg-gray-50 border-b border-r border-gray-200 w-1/5"></th>
-                                    <th class="px-4 py-3 bg-indigo-50 text-center text-sm font-bold text-indigo-700 border-b border-r border-gray-200 w-2/5">Non-Ess.</th>
-                                    <th class="px-4 py-3 bg-indigo-50 text-center text-sm font-bold text-indigo-700 border-b w-2/5">w/ Essential</th>
+                                    <th class="px-4 py-3 bg-gray-50 dark:bg-gray-700 border-b border-r border-gray-200 dark:border-gray-700 w-1/5"></th>
+                                    <th class="px-4 py-3 bg-indigo-50 dark:bg-indigo-900/30 text-center text-sm font-bold text-indigo-700 dark:text-indigo-300 border-b border-r border-gray-200 dark:border-gray-700 w-2/5">Non-Ess.</th>
+                                    <th class="px-4 py-3 bg-indigo-50 dark:bg-indigo-900/30 text-center text-sm font-bold text-indigo-700 dark:text-indigo-300 border-b dark:border-gray-700 w-2/5">w/ Essential</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white text-lg font-bold">
-                                <tr class="border-b border-gray-200">
-                                    <td class="px-4 py-4 bg-green-50 text-green-800 text-center border-r border-gray-200">ON</td>
-                                    <td class="px-4 py-4 text-center text-green-600 border-r border-gray-200" id="res-on-basic">$0.00</td>
-                                    <td class="px-4 py-4 text-center text-green-600" id="res-on-ess">$0.00</td>
+                            <tbody class="bg-white dark:bg-gray-800 text-lg font-bold">
+                                <tr class="border-b border-gray-200 dark:border-gray-700">
+                                    <td class="px-4 py-4 bg-green-50 dark:bg-green-900/30 text-green-800 dark:text-green-200 text-center border-r border-gray-200 dark:border-gray-700">ON</td>
+                                    <td class="px-4 py-4 text-center text-green-600 dark:text-green-400 border-r border-gray-200 dark:border-gray-700" id="res-on-basic">$0.00</td>
+                                    <td class="px-4 py-4 text-center text-green-600 dark:text-green-400" id="res-on-ess">$0.00</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-4 bg-indigo-50 text-indigo-800 text-center border-r border-gray-200">NS</td>
-                                    <td class="px-4 py-4 text-center text-indigo-600 border-r border-gray-200" id="res-ns-basic">$0.00</td>
-                                    <td class="px-4 py-4 text-center text-indigo-600" id="res-ns-ess">$0.00</td>
+                                    <td class="px-4 py-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 text-center border-r border-gray-200 dark:border-gray-700">NS</td>
+                                    <td class="px-4 py-4 text-center text-indigo-600 dark:text-indigo-400 border-r border-gray-200 dark:border-gray-700" id="res-ns-basic">$0.00</td>
+                                    <td class="px-4 py-4 text-center text-indigo-600 dark:text-indigo-400" id="res-ns-ess">$0.00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -153,104 +196,114 @@
                 </div>
             </section>
 
-            <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                    <h2 class="text-lg font-bold text-indigo-700">B. Number of Payments Calculation</h2>
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">B. Number of Payments Calculation</h2>
                 </div>
                 <div class="p-6">
                     <div class="flex flex-col md:flex-row gap-8 items-center">
                         <div class="w-full md:w-1/3">
-                            <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Term In Months</label>
-                            <input type="number" id="termMonths" value="84" class="input-highlight text-center block w-full px-4 py-4 border-gray-300 rounded-xl text-3xl font-bold text-gray-900 shadow-sm" placeholder="0">
+                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Term In Months</label>
+                            <input type="number" id="termMonths" value="84" class="input-highlight text-center block w-full px-4 py-4 border-gray-300 dark:border-gray-600 rounded-xl text-3xl font-bold text-gray-900 dark:text-white shadow-sm" placeholder="0">
                         </div>
                         
                         <div class="w-full md:w-2/3 grid grid-cols-2 gap-4">
-                            <div class="bg-purple-50 rounded-xl p-4 text-center border border-purple-100">
-                                <span class="block text-xs font-bold text-purple-600 uppercase mb-1">Bi-Weekly</span>
-                                <span class="block text-4xl font-extrabold text-purple-900" id="res-biweekly">0</span>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800">
+                                <span class="block text-xs font-bold text-purple-600 dark:text-purple-300 uppercase mb-1">Bi-Weekly</span>
+                                <span class="block text-4xl font-extrabold text-purple-900 dark:text-purple-100" id="res-biweekly">0</span>
                             </div>
-                            <div class="bg-purple-50 rounded-xl p-4 text-center border border-purple-100">
-                                <span class="block text-xs font-bold text-purple-600 uppercase mb-1">Weekly</span>
-                                <span class="block text-4xl font-extrabold text-purple-900" id="res-weekly">0</span>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800">
+                                <span class="block text-xs font-bold text-purple-600 dark:text-purple-300 uppercase mb-1">Weekly</span>
+                                <span class="block text-4xl font-extrabold text-purple-900 dark:text-purple-100" id="res-weekly">0</span>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="mt-6 border-t border-gray-100 dark:border-gray-700 pt-2">
+                        <table class="w-full">
+                            <tr class="bg-gray-50/50 dark:bg-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
+                                <td class="py-2 px-3 font-medium text-center">
+                                    <i class="fas fa-info-circle mr-1"></i> For TD, No. of Payments on BOS = (Result - 1)
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </section>
 
-            <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                <div class="border-b border-gray-100 bg-gray-50/50 px-6 py-4 flex justify-between items-center">
-                    <h2 class="text-lg font-bold text-indigo-700">C. Package Net Price (After Discount)</h2>
-                    <span class="text-xs text-gray-400 bg-white border px-2 py-1 rounded">Auto-calc enabled</span>
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">C. Package Net Price (After Discount)</h2>
+                    <span class="text-xs text-gray-400 bg-white dark:bg-gray-700 border dark:border-gray-600 px-2 py-1 rounded">Auto-calc enabled</span>
                 </div>
                 <div class="p-6">
                     <div class="w-full overflow-x-auto">
                         <table class="min-w-full border-collapse">
                             <thead>
-                                <tr class="text-sm font-bold text-gray-600 tracking-wider text-center">
-                                    <th class="p-3 border-b w-1/4 text-left"></th>
-                                    <th class="p-3 border-b w-1/4">Rust Protection</th>
-                                    <th class="p-3 border-b w-1/4">Tire & Rim</th>
-                                    <th class="p-3 border-b w-1/4">Other Cert</th>
+                                <tr class="text-sm font-bold text-gray-600 dark:text-gray-300 tracking-wider text-center">
+                                    <th class="p-3 border-b dark:border-gray-700 w-1/4 text-left"></th>
+                                    <th class="p-3 border-b dark:border-gray-700 w-1/4">Rust Protection</th>
+                                    <th class="p-3 border-b dark:border-gray-700 w-1/4">Tire & Rim</th>
+                                    <th class="p-3 border-b dark:border-gray-700 w-1/4">Other Cert</th>
                                 </tr>
                             </thead>
                             <tbody class="text-sm">
                                 <tr>
-                                    <td class="p-3 font-bold text-gray-700 border-b align-middle">Premium Cost</td>
-                                    <td class="p-3 border-b">
-                                        <input type="number" id="rustCost" tabindex="10" value="1259" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                    <td class="p-3 font-bold text-gray-700 dark:text-gray-200 border-b dark:border-gray-700 align-middle">Premium Cost</td>
+                                    <td class="p-3 border-b dark:border-gray-700">
+                                        <input type="number" id="rustCost" tabindex="10" value="1259" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
-                                    <td class="p-3 border-b">
-                                        <input type="number" id="tireCost" tabindex="12" value="1059" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                    <td class="p-3 border-b dark:border-gray-700">
+                                        <input type="number" id="tireCost" tabindex="12" value="1059" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
-                                    <td class="p-3 border-b">
-                                        <input type="number" id="warrantyCost" tabindex="14" value="3533" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                    <td class="p-3 border-b dark:border-gray-700">
+                                        <input type="number" id="warrantyCost" tabindex="14" value="0" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-bold text-gray-700 border-b align-middle">Discount</td>
-                                    <td class="p-3 border-b">
-                                        <input type="number" id="rustDisc" tabindex="11" value="377.7" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-500" placeholder="0">
+                                    <td class="p-3 font-bold text-gray-700 dark:text-gray-200 border-b dark:border-gray-700 align-middle">Discount</td>
+                                    <td class="p-3 border-b dark:border-gray-700">
+                                        <input type="number" id="rustDisc" tabindex="11" value="377.7" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-500 dark:text-gray-400" placeholder="0">
                                     </td>
-                                    <td class="p-3 border-b">
-                                        <input type="number" id="tireDisc" tabindex="13" value="317.7" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-500" placeholder="0">
+                                    <td class="p-3 border-b dark:border-gray-700">
+                                        <input type="number" id="tireDisc" tabindex="13" value="317.7" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-500 dark:text-gray-400" placeholder="0">
                                     </td>
-                                    <td class="p-3 border-b">
-                                        <input type="number" id="warrantyDisc" tabindex="15" value="0" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-500" placeholder="0">
+                                    <td class="p-3 border-b dark:border-gray-700">
+                                        <input type="number" id="warrantyDisc" tabindex="15" value="0" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-500 dark:text-gray-400" placeholder="0">
                                     </td>
                                 </tr>
-                                <tr class="bg-gray-50/50">
-                                    <td class="p-3 font-bold text-gray-900 border-b align-middle">Net Price</td>
-                                    <td class="p-3 text-center border-b">
-                                        <span class="text-lg font-bold text-green-700 block" id="res-rust-net">$881.30</span>
+                                <tr class="bg-gray-50/50 dark:bg-gray-700/50">
+                                    <td class="p-3 font-bold text-gray-900 dark:text-white border-b dark:border-gray-700 align-middle">Net Price</td>
+                                    <td class="p-3 text-center border-b dark:border-gray-700">
+                                        <span class="text-lg font-bold text-green-700 dark:text-green-400 block" id="res-rust-net">$881.30</span>
                                     </td>
-                                    <td class="p-3 text-center border-b">
-                                        <span class="text-lg font-bold text-green-700 block" id="res-tire-net">$741.30</span>
+                                    <td class="p-3 text-center border-b dark:border-gray-700">
+                                        <span class="text-lg font-bold text-green-700 dark:text-green-400 block" id="res-tire-net">$741.30</span>
                                     </td>
-                                    <td class="p-3 text-center border-b">
-                                        <span class="text-lg font-bold text-green-700 block" id="res-warranty-net">$3,533.00</span>
+                                    <td class="p-3 text-center border-b dark:border-gray-700">
+                                        <span class="text-lg font-bold text-green-700 dark:text-green-400 block" id="res-warranty-net">$3,533.00</span>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     
-                    <div class="mt-6 flex justify-between md:justify-start items-center text-gray-700 px-4 border-t pt-4 bg-gray-50 rounded-b-lg">
+                    <div class="mt-6 flex justify-between md:justify-start items-center text-gray-700 dark:text-gray-200 px-4 border-t dark:border-gray-700 pt-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-lg">
                         <span class="text-lg font-bold mr-4">Total Net Price:</span>
-                        <span class="text-2xl font-bold text-indigo-700" id="res-total-net">$5,155.60</span>
+                        <span class="text-2xl font-bold text-indigo-700 dark:text-indigo-400" id="res-total-net">$5,155.60</span>
                     </div>
                 </div>
             </section>
 
-            <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mb-12">
-                <div class="border-b border-gray-100 bg-gray-50/50 px-6 py-4">
-                    <h2 class="text-lg font-bold text-indigo-700">D. Cert Discount Calculator</h2>
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">D. Cert Discount Calculator</h2>
                 </div>
                 <div class="p-6 space-y-6">
                     
                     <div class="w-full md:w-1/2">
-                        <label class="block text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Province (HST Tax Rules)</label>
-                        <select id="provinceSelect" class="block w-full pl-4 pr-10 py-3 text-lg border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-lg bg-yellow-50 font-medium">
+                        <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Province (HST Tax Rules)</label>
+                        <select id="provinceSelect" class="block w-full pl-4 pr-10 py-3 text-lg border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-lg bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-100 font-medium">
                             <option value="ON">ON (Ontario)</option>
                             <option value="NS">NS (Nova Scotia)</option>
                             <option value="NB">NB (New Brunswick)</option>
@@ -260,51 +313,51 @@
                     <div class="w-full overflow-x-auto">
                         <table class="min-w-full table-fixed">
                             <thead>
-                                <tr class="text-gray-700 tracking-wider border-b border-gray-100">
+                                <tr class="text-gray-700 dark:text-gray-300 tracking-wider border-b border-gray-100 dark:border-gray-700">
                                     <th class="pb-3 text-left w-1/4 text-xs font-bold uppercase">Item</th>
                                     <th class="pb-3 text-center w-1/3 text-sm font-bold">Warranty</th>
                                     <th class="pb-3 text-center w-1/3">
                                         <span id="gapHeaderLabel" class="block text-sm font-bold">GAP</span>
-                                        <select id="gapTypeSelect" class="hidden w-full py-1 px-2 text-sm font-bold text-indigo-700 border border-indigo-200 rounded bg-indigo-50 focus:outline-none text-center cursor-pointer">
+                                        <select id="gapTypeSelect" class="hidden w-full py-1 px-2 text-sm font-bold text-indigo-700 dark:text-indigo-200 border border-indigo-200 dark:border-indigo-700 rounded bg-indigo-50 dark:bg-indigo-900/30 focus:outline-none text-center cursor-pointer">
                                             <option value="other">GAP (Other Taxable)</option>
                                             <option value="ah">GAP (A/H Insurance)</option>
                                         </select>
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-100 text-sm">
+                            <tbody class="divide-y divide-gray-100 dark:divide-gray-700 text-sm">
                                 <tr>
-                                    <td class="py-3 font-medium text-gray-900 align-middle">Original Price</td>
+                                    <td class="py-3 font-medium text-gray-900 dark:text-gray-100 align-middle">Original Price</td>
                                     <td class="py-3 px-2">
-                                        <input type="number" id="warOrg" tabindex="20" value="3000" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                        <input type="number" id="warOrg" tabindex="20" value="3000" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
                                     <td class="py-3 px-2">
-                                        <input type="number" id="gapOrg" tabindex="22" value="3000" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                        <input type="number" id="gapOrg" tabindex="22" value="3000" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 font-medium text-gray-900 align-middle">Dealertrack Price</td>
+                                    <td class="py-3 font-medium text-gray-900 dark:text-gray-100 align-middle">Dealertrack Price</td>
                                     <td class="py-3 px-2">
-                                        <input type="number" id="warDT" tabindex="21" value="2500" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                        <input type="number" id="warDT" tabindex="21" value="2500" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
                                     <td class="py-3 px-2">
-                                        <input type="number" id="gapDT" tabindex="23" value="2800" class="input-highlight w-full text-center py-3 border-gray-300 rounded-lg text-lg font-bold text-gray-900" placeholder="0">
+                                        <input type="number" id="gapDT" tabindex="23" value="2800" class="input-highlight w-full text-center py-3 border-gray-300 dark:border-gray-600 rounded-lg text-lg font-bold text-gray-900 dark:text-white" placeholder="0">
                                     </td>
                                 </tr>
-                                <tr class="bg-gray-50/50 text-xs text-gray-500">
+                                <tr class="bg-gray-50/50 dark:bg-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
                                     <td class="py-2 font-medium">Current Tax Rate</td>
-                                    <td class="py-2 text-center font-bold text-indigo-600" id="warTaxDisplay">13%</td>
-                                    <td class="py-2 text-center font-bold text-indigo-600" id="gapTaxDisplay">8%</td>
+                                    <td class="py-2 text-center font-bold text-indigo-600 dark:text-indigo-400" id="warTaxDisplay">13%</td>
+                                    <td class="py-2 text-center font-bold text-indigo-600 dark:text-indigo-400" id="gapTaxDisplay">8%</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 font-medium text-gray-700">Admin Discount <span class="text-xs text-gray-400 block">(w/ HST)</span></td>
-                                    <td class="py-3 text-center font-bold text-green-700 text-lg" id="warAdminDisc">$0.00</td>
-                                    <td class="py-3 text-center font-bold text-green-700 text-lg" id="gapAdminDisc">$0.00</td>
+                                    <td class="py-3 font-medium text-gray-700 dark:text-gray-200">Credits on Admin <span class="text-xs text-gray-400 block">(w/ HST)</span></td>
+                                    <td class="py-3 text-center font-bold text-green-700 dark:text-green-400 text-lg" id="warAdminDisc">$0.00</td>
+                                    <td class="py-3 text-center font-bold text-green-700 dark:text-green-400 text-lg" id="gapAdminDisc">$0.00</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-3 font-medium text-gray-700">iA Discount <span class="text-xs text-gray-400 block">(excl. HST)</span></td>
-                                    <td class="py-3 text-center font-bold text-blue-700 text-lg" id="warIaDisc">$0.00</td>
-                                    <td class="py-3 text-center font-bold text-blue-700 text-lg" id="gapIaDisc">$0.00</td>
+                                    <td class="py-3 font-medium text-gray-700 dark:text-gray-200">iA Discount <span class="text-xs text-gray-400 block">(excl. HST)</span></td>
+                                    <td class="py-3 text-center font-bold text-blue-700 dark:text-blue-400 text-lg" id="warIaDisc">$0.00</td>
+                                    <td class="py-3 text-center font-bold text-blue-700 dark:text-blue-400 text-lg" id="gapIaDisc">$0.00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -312,20 +365,43 @@
 
                 </div>
             </section>
+
+             <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden mb-12">
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">E. Fees and credits</h2>
+                </div>
+                <div class="p-6">
+                     <h3 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Amount on ROBS</h3>
+                     <div class="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600">
+                        <ul class="space-y-3 text-sm md:text-base font-medium text-gray-800 dark:text-gray-200">
+                            <li class="flex items-start">
+                                <span class="font-bold text-red-600 dark:text-red-400 mr-2">- $xxx</span>
+                                <span>= &nbsp; “Fee” on Admin, “Non-taxable” on DT</span>
+                            </li>
+                            <li class="flex items-start">
+                                 <span class="font-bold text-green-600 dark:text-green-400 mr-2">+ $xxx</span>
+                                 <span>= &nbsp; “Credits” on Admin, “Cash Deposit” on DT</span>
+                            </li>
+                        </ul>
+                     </div>
+                </div>
+            </section>
         </div>
 
         <div id="view-lender" class="hidden-section space-y-8">
-            <section class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden min-h-[600px]">
-                <div class="border-b border-gray-200 bg-emerald-50 px-6 py-4">
-                    <h2 class="text-lg font-bold text-emerald-700">Lender Requirement</h2>
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 min-h-[600px]">
+                
+                <div class="border-b border-gray-200 dark:border-gray-700 bg-emerald-50 dark:bg-emerald-900/30 px-6 py-4 rounded-t-xl">
+                    <h2 class="text-lg font-bold text-emerald-700 dark:text-emerald-400">Lender Requirement</h2>
                 </div>
+                
                 <div class="p-6 space-y-6">
                     
-                    <div class="w-full md:w-1/2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Select Lender</label>
-                        <select id="lenderSelect" class="input-highlight block w-full pl-3 pr-10 py-3 text-base border-gray-300 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg">
+                    <div class="w-full sticky-lender bg-white dark:bg-gray-800">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Lender</label>
+                        <select id="lenderSelect" class="input-highlight block w-full pl-3 pr-10 py-3 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg dark:bg-gray-700 dark:text-white">
                             <option value="">-- Choose a Lender --</option>
-                            <optgroup label="Prime Lenders">
+                            <optgroup label="Prime Lenders" class="dark:bg-gray-700">
                                 <option value="CIBC">CIBC</option>
                                 <option value="NATIONAL BANK">NATIONAL BANK (BNC)</option>
                                 <option value="RBC">RBC</option>
@@ -333,14 +409,14 @@
                                 <option value="TD">TD</option>
                                 <option value="BNS">BNS (Scotiabank)</option>
                             </optgroup>
-                            <optgroup label="Sub-Prime Lenders">
+                            <optgroup label="Sub-Prime Lenders" class="dark:bg-gray-700">
                                 <option value="Eden Park">Eden Park</option>
                                 <option value="Autocapital">Autocapital</option>
                                 <option value="iA">iA</option>
                                 <option value="Santander">Santander</option>
                                 <option value="SDA">SDA</option>
                             </optgroup>
-                            <optgroup label="Pre-fund Required">
+                            <optgroup label="Pre-fund Required" class="dark:bg-gray-700">
                                 <option value="Lendcare">Lendcare</option>
                                 <option value="North Lake">North Lake</option>
                             </optgroup>
@@ -349,51 +425,51 @@
 
                     <div id="lenderResult" class="hidden rounded-lg border p-6 transition-colors duration-300">
                         <div class="flex justify-between items-start mb-4">
-                            <h3 id="lenderName" class="text-2xl font-bold text-gray-900">Lender Name</h3>
-                            <span id="lenderType" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white border">
+                            <h3 id="lenderName" class="text-2xl font-bold text-gray-900 dark:text-white">Lender Name</h3>
+                            <span id="lenderType" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white dark:bg-gray-800 border">
                                 Type
                             </span>
                         </div>
 
                         <div class="mb-6">
-                            <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">FC Signature Required at</h4>
-                            <div id="signatureReq" class="p-3 bg-white rounded border border-gray-200 font-medium text-lg">
+                            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">FC Signature Required at</h4>
+                            <div id="signatureReq" class="p-3 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 font-medium text-lg dark:text-white">
                                 </div>
                         </div>
 
                         <div class="mb-6">
-                            <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Lender Print Numbers</h4>
-                            <ul id="lenderDocs" class="list-none space-y-2 text-gray-800 font-medium pl-1">
+                            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Lender Print Numbers</h4>
+                            <ul id="lenderDocs" class="list-none space-y-2 text-gray-800 dark:text-gray-200 font-medium pl-1">
                                 </ul>
                         </div>
 
-                        <hr class="border-gray-300 my-6">
+                        <hr class="border-gray-300 dark:border-gray-600 my-6">
 
                         <div class="mb-6">
-                            <h4 class="text-xs font-bold text-emerald-700 uppercase tracking-wide mb-2">Name / ID Requirements by Lender</h4>
+                            <h4 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">Name / ID Requirements by Lender</h4>
                             
-                            <div class="w-full border rounded-lg border-gray-200 bg-white overflow-hidden">
-                                <table class="min-w-full divide-y divide-gray-200 text-sm">
-                                    <tbody class="divide-y divide-gray-200">
+                            <div class="w-full border rounded-lg border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 overflow-hidden">
+                                <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600 text-sm">
+                                    <tbody class="divide-y divide-gray-200 dark:divide-gray-600">
                                         <tr>
-                                            <td class="px-4 py-3 font-bold text-gray-600 bg-gray-50 w-1/3 align-top">Middle Name Required</td>
-                                            <td id="row-middle" class="px-4 py-3 text-gray-900 w-2/3"></td>
+                                            <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">Middle Name Required</td>
+                                            <td id="row-middle" class="px-4 py-3 text-gray-900 dark:text-white w-2/3"></td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-3 font-bold text-gray-600 bg-gray-50 w-1/3 align-top">Manual Changes Allowed</td>
-                                            <td id="row-manual" class="px-4 py-3 text-gray-900 w-2/3"></td>
+                                            <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">Manual Changes Allowed</td>
+                                            <td id="row-manual" class="px-4 py-3 text-gray-900 dark:text-white w-2/3"></td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-3 font-bold text-gray-600 bg-gray-50 w-1/3 align-top">Digital Signatures</td>
-                                            <td id="row-digital" class="px-4 py-3 text-gray-900 w-2/3"></td>
+                                            <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">Digital Signatures</td>
+                                            <td id="row-digital" class="px-4 py-3 text-gray-900 dark:text-white w-2/3"></td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-3 font-bold text-gray-600 bg-gray-50 w-1/3 align-top">Mononym</td>
-                                            <td id="row-mononym" class="px-4 py-3 text-gray-900 w-2/3"></td>
+                                            <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">Mononym</td>
+                                            <td id="row-mononym" class="px-4 py-3 text-gray-900 dark:text-white w-2/3"></td>
                                         </tr>
                                         <tr>
-                                            <td class="px-4 py-3 font-bold text-gray-600 bg-gray-50 w-1/3 align-top">ID's Accepted</td>
-                                            <td id="row-ids" class="px-4 py-3 text-gray-900 w-2/3"></td>
+                                            <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">ID's Accepted</td>
+                                            <td id="row-ids" class="px-4 py-3 text-gray-900 dark:text-white w-2/3"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -401,16 +477,16 @@
                         </div>
 
                         <div class="mb-6">
-                            <h4 class="text-xs font-bold text-emerald-700 uppercase tracking-wide mb-2">Special Requirements</h4>
-                            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 space-y-4 text-sm">
+                            <h4 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">Special Requirements</h4>
+                            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700 space-y-4 text-sm">
                                 <div>
-                                    <span class="block text-xs font-bold text-gray-500 uppercase">Specific Rules</span>
-                                    <ul id="l2-special" class="list-disc pl-5 font-medium text-gray-900 mt-1 space-y-1">
+                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Specific Rules</span>
+                                    <ul id="l2-special" class="list-disc pl-5 font-medium text-gray-900 dark:text-gray-200 mt-1 space-y-1">
                                         </ul>
                                 </div>
-                                <div class="pt-2 border-t border-yellow-200">
-                                    <span class="block text-xs font-bold text-gray-500 uppercase mb-1">General Rules</span>
-                                    <ul class="list-none space-y-1 text-gray-700">
+                                <div class="pt-2 border-t border-yellow-200 dark:border-yellow-700">
+                                    <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">General Rules</span>
+                                    <ul class="list-none space-y-1 text-gray-700 dark:text-gray-300">
                                         <li class="flex items-start">
                                             <span class="mr-2 text-emerald-500">✔</span>
                                             DL exp date must be after 1st payment date
@@ -424,43 +500,43 @@
                             </div>
                         </div>
 
-                        <div id="subPrimeWarning" class="hidden mt-4 bg-red-50 border-l-4 border-red-400 p-4 rounded-r-lg">
+                        <div id="subPrimeWarning" class="hidden mt-4 bg-red-50 dark:bg-red-900/30 border-l-4 border-red-400 p-4 rounded-r-lg">
                             <div class="flex">
                                 <div class="flex-shrink-0">
                                     <span class="text-red-500 font-bold">⚠</span>
                                 </div>
                                 <div class="ml-3">
-                                    <h3 class="text-sm font-bold text-red-800 uppercase">Sub-Prime Requirement</h3>
-                                    <div class="mt-1 text-sm text-red-700">
+                                    <h3 class="text-sm font-bold text-red-800 dark:text-red-300 uppercase">Sub-Prime Requirement</h3>
+                                    <div class="mt-1 text-sm text-red-700 dark:text-red-200">
                                         <p>Pink slip is not allowed for Proof of Insurance. <strong>Need full binder.</strong></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="bonusContainer" class="hidden mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+                        <div id="bonusContainer" class="hidden mt-6 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
                             <div class="flex items-start">
                                 <div class="flex-shrink-0 mt-0.5">
                                     <span class="text-blue-500 font-bold">💲</span>
                                 </div>
                                 <div class="ml-3">
-                                    <h4 class="text-sm font-bold text-blue-800 uppercase tracking-wide mb-2">Standard Bonus Amount</h4>
-                                    <ul id="bonusList" class="list-disc pl-4 text-sm font-medium text-blue-900 space-y-1">
+                                    <h4 class="text-sm font-bold text-blue-800 dark:text-blue-300 uppercase tracking-wide mb-2">Standard Bonus Amount</h4>
+                                    <ul id="bonusList" class="list-disc pl-4 text-sm font-medium text-blue-900 dark:text-blue-200 space-y-1">
                                         </ul>
                                 </div>
                             </div>
                         </div>
 
-                        <div id="prefundContainer" class="hidden mt-6 pt-6 border-t border-gray-200">
-                            <h4 class="text-xs font-bold text-gray-500 uppercase tracking-wide mb-2">Prefund Deal Instruction</h4>
-                            <div id="prefundMsg" class="p-3 bg-blue-50 rounded border border-blue-200 font-bold text-lg text-blue-800">
+                        <div id="prefundContainer" class="hidden mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Prefund Deal Instruction</h4>
+                            <div id="prefundMsg" class="p-3 bg-blue-50 dark:bg-blue-900/30 rounded border border-blue-200 dark:border-blue-800 font-bold text-lg text-blue-800 dark:text-blue-300">
                                 </div>
                         </div>
 
                     </div>
                     
-                    <div id="lenderEmpty" class="text-center py-20 text-gray-400 bg-gray-50 rounded-lg border-2 border-dashed border-gray-200">
-                        <i class="fas fa-search mb-2 text-2xl text-gray-300"></i>
+                    <div id="lenderEmpty" class="text-center py-20 text-gray-400 dark:text-gray-500 bg-gray-50 dark:bg-gray-800/50 rounded-lg border-2 border-dashed border-gray-200 dark:border-gray-700">
+                        <i class="fas fa-search mb-2 text-2xl text-gray-300 dark:text-gray-600"></i>
                         <p class="font-medium">Please select a lender to view requirements.</p>
                     </div>
 
@@ -488,17 +564,33 @@
             document.getElementById('nav-' + tabId).classList.add('segment-active');
         }
 
+        // === Dark Mode Toggle ===
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            } else {
+                html.classList.add('dark');
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            }
+        }
+
         // === Lender Data Database ===
         const lenders = {
             // Prime
             "CIBC": { 
                 type: "Prime", 
-                bgClass: "bg-green-50", 
-                borderClass: "border-green-200",
+                bgClass: "bg-green-50 dark:bg-green-900/10", 
+                borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.9, 10",
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["CIBC Conditional Sales Contract", "CIBC Credit Application"],
-                l1: { middle: "NO", mononym: "No First Name and names in last name field <br><span class='font-bold text-red-600'>2nd IDs required for mononyms</span>", manual: "Yes but not to name or VIN", digital: "YES" },
+                l1: { middle: "NO", mononym: "No First Name and names in last name field <br><span class='font-bold text-red-600 dark:text-red-400'>2nd IDs required for mononyms</span>", manual: "Yes but not to name or VIN", digital: "YES" },
                 l2: { 
                     ids: "Provincial ID cards accepted", 
                     special: [
@@ -509,30 +601,29 @@
             },
             "NATIONAL BANK": { 
                 type: "Prime", 
-                bgClass: "bg-green-50", 
-                borderClass: "border-green-200",
+                bgClass: "bg-green-50 dark:bg-green-900/10", 
+                borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.12, 13, 16",
                 prefund: "for PREFUND: Send via Docusign",
                 docs: ["Conditional Sales Agreement", "Additional required lender form(s)"],
                 l1: { 
                     middle: "NO", 
                     mononym: "Both names in both fields", 
-                    manual: "<span class='text-red-600 font-bold'>Not allowed</span>", 
-                    digital: "<span class='text-red-600 font-bold'>Docusign Only</span>" 
+                    manual: "<span class='text-red-600 dark:text-red-400 font-bold'>Not allowed</span>", 
+                    digital: "<span class='text-red-600 dark:text-red-400 font-bold'>Docusign Only</span>" 
                 },
                 l2: { 
                     ids: "Provincial ID cards or Passports accepted for both apps", 
                     special: [
                         "VC name must be 100% match DL", 
                         "NO COMPANY VC for personal deal"
-                        // Removed "Prefund deals need to be sent on docusign"
                     ] 
                 }
             },
             "RBC": { 
                 type: "Prime", 
-                bgClass: "bg-green-50", 
-                borderClass: "border-green-200",
+                bgClass: "bg-green-50 dark:bg-green-900/10", 
+                borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.13, 14",
                 prefund: "for PREFUND: Send via Docusign",
                 docs: [
@@ -546,13 +637,12 @@
                     middle: "NO", 
                     mononym: "Nothing specific", 
                     manual: "Yes with initials", 
-                    digital: "<span class='text-red-600 font-bold'>Docusign Only</span>" 
+                    digital: "<span class='text-red-600 dark:text-red-400 font-bold'>Docusign Only</span>" 
                 },
                 l2: { 
-                    ids: "<span class='font-bold text-red-600'>Not accepted Photo ID (Unless exception granted)</span>", 
+                    ids: "<span class='font-bold text-red-600 dark:text-red-400'>Not accepted Photo ID (Unless exception granted)</span>", 
                     special: [
-                        "<span class='font-bold text-red-600'>International Passport NOT ACCEPTED</span>", 
-                        // Removed "Prefund deals need to be sent on docusign"
+                        "<span class='font-bold text-red-600 dark:text-red-400'>International Passport NOT ACCEPTED</span>", 
                         "GAP needs to be in the GAP box on Dealertrack",
                         "If name on void cheque doesn’t match FC, add bank account info on DT under Pre-Authorized Debit"
                     ] 
@@ -560,16 +650,15 @@
             },
             "GENERAL BANK": { 
                 type: "Prime", 
-                bgClass: "bg-green-50", 
-                borderClass: "border-green-200",
+                bgClass: "bg-green-50 dark:bg-green-900/10", 
+                borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P. 1, 10, 11",
-                // No prefund info provided
                 docs: ["Client Identification", "Conditional Sales Contract", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
                 l2: { 
-                    ids: "<ul class='list-disc pl-4 text-red-600 font-bold'><li>2nd ID required for Temporary DL</li><li>At least one buyer has to have G2 or G</li></ul>", 
+                    ids: "<ul class='list-disc pl-4 text-red-600 dark:text-red-400 font-bold'><li>2nd ID required for Temporary DL</li><li>At least one buyer has to have G2 or G</li></ul>", 
                     special: [
-                        "<span class='text-red-600 font-bold'>2nd ID required for Temp ID. Not old DL</span>",
+                        "<span class='text-red-600 dark:text-red-400 font-bold'>2nd ID required for Temp ID. Not old DL</span>",
                         "<strong>For Business Loans:</strong> Max 60 months on business loans",
                         "<strong>For Business Loans:</strong> Cannot be solely under a business, needs the director to be co-buyer",
                         "<strong>For Business Loans:</strong> Need 2 years Accountant-Prepared Corporate Financial Statements",
@@ -579,8 +668,8 @@
             },
             "TD": { 
                 type: "Prime", 
-                bgClass: "bg-green-50", 
-                borderClass: "border-green-200",
+                bgClass: "bg-green-50 dark:bg-green-900/10", 
+                borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.5",
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["Client Identification Disclosure Form", "Conditional Sale Contract", "Credit Application"],
@@ -595,8 +684,8 @@
             },
             "BNS": { 
                 type: "Prime", 
-                bgClass: "bg-green-50", 
-                borderClass: "border-green-200",
+                bgClass: "bg-green-50 dark:bg-green-900/10", 
+                borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.4",
                 prefund: "for PREFUND: Send in Admin",
                 docs: [
@@ -609,7 +698,7 @@
                 l2: { 
                     ids: "Provincial ID cards accepted", 
                     special: [
-                        "Only accept <span class='font-bold text-red-600'>UTILITY BILL</span> OR <span class='font-bold text-red-600'>BANK STATEMENT</span> as POR"
+                        "Only accept <span class='font-bold text-red-600 dark:text-red-400'>UTILITY BILL</span> OR <span class='font-bold text-red-600 dark:text-red-400'>BANK STATEMENT</span> as POR"
                     ] 
                 }
             },
@@ -617,21 +706,21 @@
             // Sub-Prime
             "Eden Park": { 
                 type: "Sub-Prime", 
-                bgClass: "bg-pink-50", 
-                borderClass: "border-pink-200",
+                bgClass: "bg-pink-50 dark:bg-pink-900/10", 
+                borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign: P.9 (2 signatures)",
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["Consumer Finance Contract", "Credit Application"],
                 l1: { 
                     middle: "YES", 
                     mononym: "No duplicates", 
-                    manual: "<span class='text-red-600 font-bold'>Not allowed</span>", 
+                    manual: "<span class='text-red-600 dark:text-red-400 font-bold'>Not allowed</span>", 
                     digital: "YES" 
                 },
                 l2: { 
                     ids: "Main must be G2 or G license", 
                     special: [
-                        "<span class='font-bold text-red-600'>Only accept Utility Bill as POR</span>",
+                        "<span class='font-bold text-red-600 dark:text-red-400'>Only accept Utility Bill as POR</span>",
                         "GAP needs to be in “other-taxable”, not “A/H Insurance”"
                     ] 
                 },
@@ -646,8 +735,8 @@
             },
             "Autocapital": { 
                 type: "Sub-Prime", 
-                bgClass: "bg-pink-50", 
-                borderClass: "border-pink-200",
+                bgClass: "bg-pink-50 dark:bg-pink-900/10", 
+                borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign Manually. NO Digital Sign",
                 prefund: "for PREFUND: MANUAL SEND",
                 docs: ["Application for Credit", "Loan Agreement"],
@@ -656,30 +745,29 @@
                     ids: "Main must be G2 or G license", 
                     special: [
                         "Most likely will have a cap on GAP price (usually $2k max) - check standard stipulation",
-                        "Check <span class='text-red-600 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 font-bold'>over $7,500</span> flag advisor"
+                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor"
                     ] 
                 }
             },
             "iA": { 
                 type: "Sub-Prime", 
-                bgClass: "bg-pink-50", 
-                borderClass: "border-pink-200",
+                bgClass: "bg-pink-50 dark:bg-pink-900/10", 
+                borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign: P.5",
-                // No prefund info provided
                 docs: ["Conditional Sales Agreement", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Name and KM are allowed", digital: "YES" },
                 l2: { 
                     ids: "Main must be G2 or G license", 
                     special: [
                         "Co-app can be ID cards or passport including international",
-                        "Check <span class='text-red-600 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 font-bold'>over $7,500</span> flag advisor"
+                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor"
                     ] 
                 }
             },
             "Santander": { 
                 type: "Sub-Prime", 
-                bgClass: "bg-pink-50", 
-                borderClass: "border-pink-200",
+                bgClass: "bg-pink-50 dark:bg-pink-900/10", 
+                borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign: P.11",
                 prefund: "for PREFUND: MANUAL SEND",
                 docs: ["Contract", "Credit Application", "Customer ID Form"],
@@ -688,8 +776,8 @@
             },
             "SDA": { 
                 type: "Sub-Prime", 
-                bgClass: "bg-pink-50", 
-                borderClass: "border-pink-200",
+                bgClass: "bg-pink-50 dark:bg-pink-900/10", 
+                borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign Manually. NO Digital Sign",
                 prefund: "for PREFUND: Send in Admin",
                 docs: ["Applicant's Statement", "Credit Agreement", "Customer Identification Verification Form", "Legal Name Verification (for East only)"],
@@ -697,7 +785,7 @@
                 l2: { 
                     ids: "-", 
                     special: [
-                        "Check <span class='text-red-600 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 font-bold'>over $7,500</span> flag advisor"
+                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor"
                     ] 
                 }
             },
@@ -705,8 +793,8 @@
             // Pre-fund
             "Lendcare": { 
                 type: "Pre-fund Required", 
-                bgClass: "bg-purple-50", 
-                borderClass: "border-purple-200",
+                bgClass: "bg-purple-50 dark:bg-purple-900/10", 
+                borderClass: "border-purple-200 dark:border-purple-800",
                 signature: "Sign Manually. NO Digital Sign",
                 prefund: "for PREFUND: MANUAL SEND",
                 docs: ["Credit Agreement", "GPS Agreement (if Applicable)"],
@@ -714,7 +802,7 @@
                 l2: { 
                     ids: "<ul class='list-disc pl-4'><li>Main must be G2 or G license</li><li>Co-app can be ID cards</li></ul>", 
                     special: [
-                        "<span class='font-bold text-red-600'>Not accept BMO Void Cheque</span>",
+                        "<span class='font-bold text-red-600 dark:text-red-400'>Not accept BMO Void Cheque</span>",
                         "Insurance must show LendCare Capital as lienholder (exemption BC/MB will not show -LendCare as lienholders)"
                     ] 
                 },
@@ -726,8 +814,8 @@
             },
             "North Lake": { 
                 type: "Pre-fund Required", 
-                bgClass: "bg-purple-50", 
-                borderClass: "border-purple-200",
+                bgClass: "bg-purple-50 dark:bg-purple-900/10", 
+                borderClass: "border-purple-200 dark:border-purple-800",
                 signature: "Sign: P.1, 5",
                 prefund: "for PREFUND: MANUAL SEND",
                 docs: ["Asset Verification", "Conditional Sales Contract", "Consumer Credit Application", "Legal Name Disclosure (for East only)", "Disclosure Statement and Agreement for Installation (GPS) <strong>(if Applicable)</strong>"],
@@ -764,13 +852,13 @@
                 typeSpan.textContent = data.type;
                 
                 // Reset classes first
-                typeSpan.className = "inline-flex items-center px-3 py-1 rounded-full bg-white border font-bold"; 
+                typeSpan.className = "inline-flex items-center px-3 py-1 rounded-full bg-white dark:bg-gray-800 border font-bold"; 
                 
                 // Add dynamic styling
                 if (data.type === "Prime") {
-                    typeSpan.classList.add("text-sm", "text-green-800", "border-green-200");
+                    typeSpan.classList.add("text-sm", "text-green-800", "dark:text-green-300", "border-green-200", "dark:border-green-800");
                 } else {
-                    typeSpan.classList.add("text-xl", "text-red-600", "border-red-200", "uppercase", "tracking-wide");
+                    typeSpan.classList.add("text-xl", "text-red-600", "dark:text-red-400", "border-red-200", "dark:border-red-800", "uppercase", "tracking-wide");
                 }
                 
                 // Update Container Classes
@@ -791,9 +879,9 @@
                 sigDiv.textContent = data.signature || "N/A";
                 // Check if manual sign is required to style it red/bold
                 if (data.signature.includes("NO Digital Sign")) {
-                    sigDiv.className = "p-3 bg-white rounded border border-red-300 font-bold text-lg text-red-600";
+                    sigDiv.className = "p-3 bg-white dark:bg-gray-700 rounded border border-red-300 dark:border-red-500 font-bold text-lg text-red-600 dark:text-red-400";
                 } else {
-                    sigDiv.className = "p-3 bg-white rounded border border-gray-200 font-medium text-lg text-gray-800";
+                    sigDiv.className = "p-3 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 font-medium text-lg text-gray-800 dark:text-gray-100";
                 }
 
                 // 2. Docs List (Replaced with PDF badge)
@@ -802,29 +890,29 @@
                 data.docs.forEach(doc => {
                     const li = document.createElement('li');
                     li.className = "flex items-start";
-                    li.innerHTML = `<span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-red-600 bg-red-100 rounded-full"><i class="fas fa-file-pdf"></i></span> <span class="mt-0.5">${doc}</span>`;
+                    li.innerHTML = `<span class="inline-flex items-center justify-center w-6 h-6 mr-2 text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900/30 rounded-full"><i class="fas fa-file-pdf"></i></span> <span class="mt-0.5">${doc}</span>`;
                     docsList.appendChild(li);
                 });
 
-                // 3. Vertical Table Data (Name/ID Requirements)
+                // 3. Vertical Table Data
                 
                 // Middle Name
                 const middleEl = document.getElementById('row-middle');
                 middleEl.textContent = data.l1.middle || "-";
-                middleEl.className = data.l1.middle === "YES" ? "px-4 py-3 text-red-600 font-bold w-2/3" : "px-4 py-3 text-gray-900 w-2/3";
+                middleEl.className = data.l1.middle === "YES" ? "px-4 py-3 text-red-600 dark:text-red-400 font-bold w-2/3" : "px-4 py-3 text-gray-900 dark:text-white w-2/3";
 
-                // Manual Changes - ALLOW HTML
+                // Manual Changes
                 document.getElementById('row-manual').innerHTML = data.l1.manual || "-";
                 
-                // Digital Signatures - ALLOW HTML
+                // Digital Signatures
                 document.getElementById('row-digital').innerHTML = data.l1.digital || "-";
 
                 // Mononym
                 const mononymEl = document.getElementById('row-mononym');
                 mononymEl.innerHTML = data.l1.mononym || "-"; 
-                mononymEl.className = (data.l1.mononym && data.l1.mononym.includes("No First Name")) ? "px-4 py-3 text-red-600 font-bold w-2/3" : "px-4 py-3 text-gray-900 w-2/3";
+                mononymEl.className = (data.l1.mononym && data.l1.mononym.includes("No First Name")) ? "px-4 py-3 text-red-600 dark:text-red-400 font-bold w-2/3" : "px-4 py-3 text-gray-900 dark:text-white w-2/3";
 
-                // IDs Accepted (Moved from L2)
+                // IDs Accepted
                 const idsEl = document.getElementById('row-ids');
                 idsEl.innerHTML = data.l2.ids || "-"; 
 
@@ -943,14 +1031,12 @@
                 warTax = 0.13;
                 gapTax = 0.08;
                 gapLabel.classList.remove('hidden');
-                // UPDATED: Change label text specifically for ON
                 gapLabel.textContent = "GAP (under A/H)";
                 gapSelect.classList.add('hidden');
             } else if (province === 'NS') {
                 warTax = 0.14;
                 gapTax = 0.14;
                 gapLabel.classList.add('hidden');
-                // Reset label text for others (though hidden)
                 gapLabel.textContent = "GAP"; 
                 gapSelect.classList.remove('hidden');
             } else if (province === 'NB') {
@@ -1031,6 +1117,7 @@
             // D
             ['provinceSelect', 'gapTypeSelect', 'warOrg', 'warDT', 'gapOrg', 'gapDT'].forEach(id => document.getElementById(id).addEventListener('input', calcSectionD));
             calcSectionD();
+
         });
 
     </script>
