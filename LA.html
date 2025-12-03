@@ -111,10 +111,10 @@
             top: 73px;
             z-index: 40;
             background-color: inherit;
-            margin-left: -1.5rem;
-            margin-right: -1.5rem;
+            /* Removed negative margins for direct card placement */
             padding-left: 1.5rem;
             padding-right: 1.5rem;
+            padding-top: 1rem; /* Added top padding */
             padding-bottom: 1rem;
             border-bottom: 1px solid #E5E7EB;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -196,41 +196,6 @@
                                     <td class="px-4 py-4 text-center text-indigo-600 dark:text-indigo-400" id="res-ns-ess">$0.00</td>
                                 </tr>
                             </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
-                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">B. Number of Payments Calculation</h2>
-                </div>
-                <div class="p-6">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="w-full md:w-1/3">
-                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Term In Months</label>
-                            <input type="number" id="termMonths" value="84" class="input-highlight text-center block w-full px-4 py-4 border-gray-300 dark:border-gray-600 rounded-xl text-3xl font-bold text-gray-900 dark:text-white shadow-sm" placeholder="0">
-                        </div>
-                        
-                        <div class="w-full md:w-2/3 grid grid-cols-2 gap-4">
-                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800">
-                                <span class="block text-xs font-bold text-purple-600 dark:text-purple-300 uppercase mb-1">Bi-Weekly</span>
-                                <span class="block text-4xl font-extrabold text-purple-900 dark:text-purple-100" id="res-biweekly">0</span>
-                            </div>
-                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800">
-                                <span class="block text-xs font-bold text-purple-600 dark:text-purple-300 uppercase mb-1">Weekly</span>
-                                <span class="block text-4xl font-extrabold text-purple-900 dark:text-purple-100" id="res-weekly">0</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 border-t border-gray-100 dark:border-gray-700 pt-2">
-                        <table class="w-full">
-                            <tr class="bg-gray-50/50 dark:bg-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
-                                <td class="py-2 px-3 font-medium text-center">
-                                    <i class="fas fa-info-circle mr-1"></i> For TD, No. of Payments on BOS = (Result - 1)
-                                </td>
-                            </tr>
                         </table>
                     </div>
                 </div>
@@ -396,37 +361,33 @@
         <div id="view-lender" class="hidden-section space-y-8">
             <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 min-h-[600px]">
                 
-                <div class="border-b border-gray-200 dark:border-gray-700 bg-emerald-50 dark:bg-emerald-900/30 px-6 py-4 rounded-t-xl">
-                    <h2 class="text-lg font-bold text-emerald-700 dark:text-emerald-400">Lender Requirement</h2>
+                <div class="w-full sticky-lender bg-white dark:bg-gray-800 rounded-t-xl border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Lender</label>
+                    <select id="lenderSelect" class="input-highlight block w-full pl-3 pr-10 py-3 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg dark:bg-gray-700 dark:text-white">
+                        <option value="">-- Choose a Lender --</option>
+                        <optgroup label="Prime Lenders" class="dark:bg-gray-700">
+                            <option value="CIBC">CIBC</option>
+                            <option value="NATIONAL BANK">NATIONAL BANK (BNC)</option>
+                            <option value="RBC">RBC</option>
+                            <option value="GENERAL BANK">GENERAL BANK (GB)</option>
+                            <option value="TD">TD</option>
+                            <option value="BNS">BNS (Scotiabank)</option>
+                        </optgroup>
+                        <optgroup label="Sub-Prime Lenders" class="dark:bg-gray-700">
+                            <option value="Eden Park">Eden Park</option>
+                            <option value="Autocapital">Autocapital</option>
+                            <option value="iA">iA</option>
+                            <option value="Santander">Santander</option>
+                            <option value="SDA">SDA</option>
+                        </optgroup>
+                        <optgroup label="Pre-fund Required" class="dark:bg-gray-700">
+                            <option value="Lendcare">Lendcare</option>
+                            <option value="North Lake">North Lake</option>
+                        </optgroup>
+                    </select>
                 </div>
                 
                 <div class="p-6 space-y-6">
-                    
-                    <div class="w-full sticky-lender bg-white dark:bg-gray-800">
-                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Lender</label>
-                        <select id="lenderSelect" class="input-highlight block w-full pl-3 pr-10 py-3 text-base border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm rounded-lg dark:bg-gray-700 dark:text-white">
-                            <option value="">-- Choose a Lender --</option>
-                            <optgroup label="Prime Lenders" class="dark:bg-gray-700">
-                                <option value="CIBC">CIBC</option>
-                                <option value="NATIONAL BANK">NATIONAL BANK (BNC)</option>
-                                <option value="RBC">RBC</option>
-                                <option value="GENERAL BANK">GENERAL BANK (GB)</option>
-                                <option value="TD">TD</option>
-                                <option value="BNS">BNS (Scotiabank)</option>
-                            </optgroup>
-                            <optgroup label="Sub-Prime Lenders" class="dark:bg-gray-700">
-                                <option value="Eden Park">Eden Park</option>
-                                <option value="Autocapital">Autocapital</option>
-                                <option value="iA">iA</option>
-                                <option value="Santander">Santander</option>
-                                <option value="SDA">SDA</option>
-                            </optgroup>
-                            <optgroup label="Pre-fund Required" class="dark:bg-gray-700">
-                                <option value="Lendcare">Lendcare</option>
-                                <option value="North Lake">North Lake</option>
-                            </optgroup>
-                        </select>
-                    </div>
 
                     <div id="lenderResult" class="hidden rounded-lg border p-6 transition-colors duration-300">
                         <div class="flex justify-between items-start mb-4">
@@ -821,7 +782,7 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.12, 13, 16",
-                prefund: "for PREFUND: Send via Docusign",
+                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>Send via Docusign</span>",
                 docs: ["Conditional Sales Agreement", "Additional required lender form(s)"],
                 l1: { 
                     middle: "NO", 
@@ -842,7 +803,7 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P.13, 14",
-                prefund: "for PREFUND: Send via Docusign",
+                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>Send via Docusign</span>",
                 docs: [
                     "Credit Application", 
                     "Conditional Sales Contract",
@@ -870,6 +831,7 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "Sign: P. 1, 10, 11",
+                prefund: "for PREFUND: Send in Admin",
                 docs: ["Client Identification", "Conditional Sales Contract", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
                 l2: { 
@@ -955,7 +917,7 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign Manually. NO Digital Sign",
-                prefund: "for PREFUND: MANUAL SEND",
+                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
                 docs: ["Application for Credit", "Loan Agreement"],
                 l1: { middle: "NO", mononym: "No First Name and names in last name field", manual: "Yes but not to name or VIN", digital: "YES" },
                 l2: { 
@@ -986,7 +948,7 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign: P.11",
-                prefund: "for PREFUND: MANUAL SEND",
+                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
                 docs: ["Contract", "Credit Application", "Customer ID Form"],
                 l1: { middle: "-", mononym: "-", manual: "-", digital: "-" },
                 l2: { ids: "-", special: [] }
@@ -1013,7 +975,7 @@
                 bgClass: "bg-purple-50 dark:bg-purple-900/10", 
                 borderClass: "border-purple-200 dark:border-purple-800",
                 signature: "Sign Manually. NO Digital Sign",
-                prefund: "for PREFUND: MANUAL SEND",
+                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
                 docs: ["Credit Agreement", "GPS Agreement (if Applicable)"],
                 l1: { middle: "YES", mononym: "-", manual: "Yes with initials", digital: "YES" },
                 l2: { 
@@ -1034,7 +996,7 @@
                 bgClass: "bg-purple-50 dark:bg-purple-900/10", 
                 borderClass: "border-purple-200 dark:border-purple-800",
                 signature: "Sign: P.1, 5",
-                prefund: "for PREFUND: MANUAL SEND",
+                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
                 docs: ["Asset Verification", "Conditional Sales Contract", "Consumer Credit Application", "Legal Name Disclosure (for East only)", "Disclosure Statement and Agreement for Installation (GPS) <strong>(if Applicable)</strong>"],
                 l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes and encourage for minor changes", digital: "YES" },
                 l2: { ids: "At least one buyer has to have G2 or G", special: ["Co-app can be ID cards or passport including international"] },
@@ -1087,7 +1049,7 @@
                     const prefundMsg = document.getElementById('prefundMsg');
                     if (data.prefund) {
                         prefundDiv.classList.remove('hidden');
-                        prefundMsg.textContent = data.prefund;
+                        prefundMsg.innerHTML = data.prefund; // Changed to innerHTML to support color spans
                     } else {
                         prefundDiv.classList.add('hidden');
                     }
