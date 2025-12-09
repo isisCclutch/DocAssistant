@@ -138,6 +138,9 @@
                 <button onclick="switchTab('delivery')" id="nav-delivery" class="segment-btn flex items-center">
                     <span class="mr-2">📍</span> Locations
                 </button>
+                <button onclick="switchTab('links')" id="nav-links" class="segment-btn flex items-center">
+                    <span class="mr-2">🔗</span> iA & Links
+                </button>
             </div>
             <button onclick="toggleDarkMode()" class="absolute top-4 right-4 sm:static w-10 h-10 rounded-full border border-gray-300 dark:border-gray-600 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-600 dark:text-yellow-400 shadow-sm">
                 <i id="theme-icon" class="fas fa-moon"></i>
@@ -155,7 +158,7 @@
                 <div class="p-6 space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Cash Price</label>
+                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1">Vehicle Price on Admin</label>
                             <div class="relative rounded-md shadow-sm">
                                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                     <span class="text-gray-400 sm:text-lg">$</span>
@@ -180,7 +183,7 @@
                                 <tr>
                                     <th class="px-4 py-3 bg-gray-50 dark:bg-gray-700 border-b border-r border-gray-200 dark:border-gray-700 w-1/5"></th>
                                     <th class="px-4 py-3 bg-indigo-50 dark:bg-indigo-900/30 text-center text-sm font-bold text-indigo-700 dark:text-indigo-300 border-b border-r border-gray-200 dark:border-gray-700 w-2/5">Non-Ess.</th>
-                                    <th class="px-4 py-3 bg-indigo-50 dark:bg-indigo-900/30 text-center text-sm font-bold text-indigo-700 dark:text-indigo-300 border-b dark:border-gray-700 w-2/5">w/ Essential</th>
+                                    <th class="px-4 py-3 bg-indigo-50 dark:bg-indigo-900/30 text-center text-sm font-bold text-indigo-700 dark:text-indigo-300 border-b dark:border-gray-700 w-2/5">w/ Essential ($1,500)</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white dark:bg-gray-800 text-lg font-bold">
@@ -190,11 +193,21 @@
                                     <td class="px-4 py-4 text-center text-green-600 dark:text-green-400" id="res-on-ess">$0.00</td>
                                 </tr>
                                 <tr>
-                                    <td class="px-4 py-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 text-center border-r border-gray-200 dark:border-gray-700">NS</td>
+                                    <td class="px-4 py-4 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-200 text-center border-r border-gray-200 dark:border-gray-700">NS / NB</td>
                                     <td class="px-4 py-4 text-center text-indigo-600 dark:text-indigo-400 border-r border-gray-200 dark:border-gray-700" id="res-ns-basic">$0.00</td>
                                     <td class="px-4 py-4 text-center text-indigo-600 dark:text-indigo-400" id="res-ns-ess">$0.00</td>
                                 </tr>
                             </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mt-6 border-t border-gray-100 dark:border-gray-700 pt-2">
+                        <table class="w-full">
+                            <tr class="bg-gray-50/50 dark:bg-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
+                                <td class="py-2 px-3 font-medium text-center">
+                                    <i class="fas fa-info-circle mr-1"></i> Admin Fee $899 applied for NS / NB Deal
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -723,13 +736,177 @@
             </section>
         </div>
 
+        <div id="view-links" class="hidden-section space-y-8">
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-200 dark:border-gray-700 bg-purple-50 dark:bg-purple-900/30 px-6 py-4 rounded-t-xl">
+                    <h2 class="text-lg font-bold text-purple-700 dark:text-purple-400">A. Lender & Branch Information for manually create iA Cert</h2>
+                </div>
+                <div class="p-6 overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-bold uppercase">
+                            <tr>
+                                <th class="px-4 py-3 text-left w-1/6">Lender</th>
+                                <th class="px-4 py-3 text-left w-1/4">Institution</th>
+                                <th class="px-4 py-3 text-left w-1/2">Branch Details</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-800 dark:text-gray-200">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">BNC</td>
+                                <td class="px-4 py-3">National Bank of Canada</td>
+                                <td class="px-4 py-3">MONTREAL (ST-JACQUES) - 09881 - 800 St-Jacques, Montreal, QC H3C 1A3</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">CIBC</td>
+                                <td class="px-4 py-3">CIBC</td>
+                                <td class="px-4 py-3">C.I.B.C. Auto Finance - P.O. Box 700, Station A, Toronto, ON M5W 1G2</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">RBC</td>
+                                <td class="px-4 py-3">Royal Bank of Canada</td>
+                                <td class="px-4 py-3">TORONTO (RTE YORK MILLS, 3E ETAGE) - 10 York Mills, 3E Étage, Toronto, ON M2P 0A2</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">BNS</td>
+                                <td class="px-4 py-3">Bank of Nova Scotia</td>
+                                <td class="px-4 py-3">Hamilton - 120 King St. W. 5Th Floor, Hamilton, ON L8P 4V2</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">TD</td>
+                                <td class="px-4 py-3">TD Auto Finance Services</td>
+                                <td class="px-4 py-3">TORONTO (STATION A) - Po Box 4086, Station A, Toronto, ON M5W 5K3</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">GB</td>
+                                <td class="px-4 py-3">General Bank of Canada</td>
+                                <td class="px-4 py-3">Edmonton (006) - 11523 100 Ave, Edmonton, AB T5K 0J8</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">SDA</td>
+                                <td class="px-4 py-3">Scotia Dealer Advantage</td>
+                                <td class="px-4 py-3">7400 BOUL. ANJOU SUITE 110 - 110 - 7400 Boul Les Galeries D'Anjou, Anjou, QC H1M 3M2</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">EP</td>
+                                <td class="px-4 py-3">Eden Park Inc.</td>
+                                <td class="px-4 py-3">Eden Park - 52 Titan Road, Etobicoke, ON M8Z 2J8</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">NorthLake</td>
+                                <td class="px-4 py-3">NorthLake Financial Corp.</td>
+                                <td class="px-4 py-3">NorthLake Financial Corp. - 201 Minets Point Road, Barrie, ON L4N 4C2</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">Lendcare</td>
+                                <td class="px-4 py-3">Lendcare Capital Inc.</td>
+                                <td class="px-4 py-3">LENDCARE CAPITAL (PICKERING) - 4Th Floor - 1315 Pickering Parkway, Pickering, ON L1V 7G5</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="border-t border-b border-gray-200 dark:border-gray-700 bg-purple-50 dark:bg-purple-900/30 px-6 py-3">
+                    <h3 class="text-sm font-bold text-purple-700 dark:text-purple-400 uppercase tracking-wide">Warranty Product Codes for manually create iA Cert</h3>
+                </div>
+                <div class="p-6 overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-bold uppercase">
+                            <tr>
+                                <th class="px-4 py-3 text-left w-1/3">Warranty Product</th>
+                                <th class="px-4 py-3 text-left w-2/3">Code</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-800 dark:text-gray-200">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">GAP</td>
+                                <td class="px-4 py-3">Promotion Code: A18</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">Tire & Rim</td>
+                                <td class="px-4 py-3">TIRE AND RIM - STD</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">Rust Protection</td>
+                                <td class="px-4 py-3">Clutch 5 Years Rust Module Warranty C2 (5YPORUST10)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                </section>
+
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-200 dark:border-gray-700 bg-blue-50 dark:bg-blue-900/30 px-6 py-4 rounded-t-xl">
+                    <h2 class="text-lg font-bold text-blue-700 dark:text-blue-400">B. Useful Links</h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <a href="https://airtable.com/appInYbuO9wuHvb9C/tblPfI7JXNpRIUm7Q/viwHRP3iqbfvsior4" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Doc Gen / Audit Queue
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://airtable.com/appInYbuO9wuHvb9C/shr3sq6PclzePEIkR" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Doc Gen Form
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://airtable.com/appr3Ww5Fo6cgTC57/shrfrypYXP7y8wDdB" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Delivery Address Approval Form
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://signature-boxes-clutch.vercel.app/" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Contract Overlay Tool (FC Signature Highlighter)
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://iapunifia.secureweb.inalco.com/wemwpn48/dashboard" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                iA (GAP & Warranty)
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://registration.diamondkote.com/app/en/warranty#/a/h/reg/info" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Diamond Kote (Tire & Rust)
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://app.withpersona.com/dashboard/login" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Persona (ID verification)
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+
+                        <a href="https://account.docusign.com/" target="_blank" class="block p-4 rounded-lg border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
+                            <h3 class="font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                                Docusign (for RBC & BNC prefund)
+                            </h3>
+                            <i class="fas fa-external-link-alt text-gray-400 group-hover:text-blue-500 text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
     </main>
 
     <script>
         // === SPA Navigation Logic ===
         function switchTab(tabId) {
             // Hide all views
-            ['calculator', 'lender', 'delivery'].forEach(id => {
+            ['calculator', 'lender', 'delivery', 'links'].forEach(id => {
                 const view = document.getElementById('view-' + id);
                 if (view) {
                     view.classList.add('hidden-section');
@@ -1229,8 +1406,8 @@
         }
 
         // Auto Discount Map
-        const rustDiscounts = { 1199: 359.7, 1259: 377.7, 1604: 481.2 };
-        const tireDiscounts = { 1059: 317.7, 1574: 472.2 };
+        const rustDiscounts = { 1199: 359.7, 1259: 377.7, 1429: 428.7, 1604: 481.2 };
+        const tireDiscounts = { 1059: 317.7, 1104: 331.2, 1574: 472.2 };
 
         // --- Section D Logic ---
         function calcSectionD() {
