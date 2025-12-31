@@ -214,32 +214,33 @@
             </section>
 
             <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
-                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">B. Number of Payments Calculation</h2>
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-4 py-2">
+                    <h2 class="text-base font-bold text-indigo-700 dark:text-indigo-400">B. Number of Payments Calculation</h2>
                 </div>
-                <div class="p-6">
-                    <div class="flex flex-col md:flex-row gap-8 items-center">
-                        <div class="w-full md:w-1/3">
-                            <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Term In Months</label>
-                            <input type="number" id="termMonths" value="84" class="input-highlight text-center block w-full px-4 py-4 border-gray-300 dark:border-gray-600 rounded-xl text-3xl font-bold text-gray-900 dark:text-white shadow-sm" placeholder="0">
+                <div class="p-4">
+                    <div class="flex flex-row gap-4 items-stretch">
+                        
+                        <div class="w-1/2">
+                            <label class="block text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1 text-center sm:text-left">Term (Mo)</label>
+                            <input type="number" id="termMonths" value="84" class="input-highlight text-center block w-full px-4 py-2 border-gray-300 dark:border-gray-600 rounded-lg text-3xl font-extrabold text-gray-900 dark:text-white shadow-sm h-[82px]" placeholder="0">
                         </div>
                         
-                        <div class="w-full md:w-2/3 grid grid-cols-2 gap-4">
-                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800">
-                                <span class="block text-xs font-bold text-purple-600 dark:text-purple-300 uppercase mb-1">Bi-Weekly</span>
-                                <span class="block text-4xl font-extrabold text-purple-900 dark:text-purple-100" id="res-biweekly">0</span>
+                        <div class="w-1/2 grid grid-cols-2 gap-2">
+                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-1 text-center border border-purple-100 dark:border-purple-800 flex flex-col justify-center h-[82px]">
+                                <span class="block text-[10px] font-bold text-purple-600 dark:text-purple-300 uppercase leading-none mb-1">Bi-Weekly</span>
+                                <span class="block text-3xl font-bold text-purple-900 dark:text-purple-100 leading-none" id="res-biweekly">0</span>
                             </div>
-                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 text-center border border-purple-100 dark:border-purple-800">
-                                <span class="block text-xs font-bold text-purple-600 dark:text-purple-300 uppercase mb-1">Weekly</span>
-                                <span class="block text-4xl font-extrabold text-purple-900 dark:text-purple-100" id="res-weekly">0</span>
+                            <div class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-1 text-center border border-purple-100 dark:border-purple-800 flex flex-col justify-center h-[82px]">
+                                <span class="block text-[10px] font-bold text-purple-600 dark:text-purple-300 uppercase leading-none mb-1">Weekly</span>
+                                <span class="block text-3xl font-bold text-purple-900 dark:text-purple-100 leading-none" id="res-weekly">0</span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="mt-6 border-t border-gray-100 dark:border-gray-700 pt-2">
+                    <div class="mt-4 border-t border-gray-100 dark:border-gray-700 pt-1">
                         <table class="w-full">
-                            <tr class="bg-gray-50/50 dark:bg-gray-700/50 text-xs text-gray-500 dark:text-gray-400">
-                                <td class="py-2 px-3 font-medium text-center">
+                            <tr class="bg-gray-50/50 dark:bg-gray-700/50 text-[10px] text-gray-500 dark:text-gray-400">
+                                <td class="py-1 px-3 font-medium text-center">
                                     <i class="fas fa-info-circle mr-1"></i> For TD, No. of Payments on BOS = (Result - 1)
                                 </td>
                             </tr>
@@ -382,6 +383,40 @@
 
                 </div>
             </section>
+            
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4">
+                    <h2 class="text-lg font-bold text-indigo-700 dark:text-indigo-400">E. Employment Discount</h2>
+                </div>
+                <div class="p-6 overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
+                        <thead class="bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-bold uppercase">
+                            <tr>
+                                <th class="px-4 py-3 text-left w-1/2">Product</th>
+                                <th class="px-4 py-3 text-left w-1/2">Discount</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-800 dark:text-gray-200">
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">Vehicle Price</td>
+                                <td class="px-4 py-3">-$1,000 +tax</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">Essential fee</td>
+                                <td class="px-4 py-3">-$1,500 +tax</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">Warranty</td>
+                                <td class="px-4 py-3">-$2,300 +tax</td>
+                            </tr>
+                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
+                                <td class="px-4 py-3 font-bold">GAP</td>
+                                <td class="px-4 py-3">-$1,800 +tax</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
 
         </div>
@@ -476,7 +511,7 @@
                                 <div>
                                     <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase">Specific Rules</span>
                                     <ul id="l2-special" class="list-disc pl-5 font-medium text-gray-900 dark:text-gray-200 mt-1 space-y-1">
-                                        </ul>
+                                    </ul>
                                 </div>
                                 <div class="pt-2 border-t border-yellow-200 dark:border-yellow-700">
                                     <span class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">General Rules</span>
@@ -485,11 +520,10 @@
                                             <span class="mr-2 text-emerald-500">✔</span>
                                             DL exp date must be after 1st payment date
                                         </li>
-					 <li class="flex items-start">
+                                        <li class="flex items-start">
                                             <span class="mr-2 text-emerald-500">✔</span>
                                             Internation Passport not accepted
                                         </li>
-
                                         <li class="flex items-start">
                                             <span class="mr-2 text-emerald-500">✔</span>
                                             TEMP DL COPY cannot be used as trade-in ownership
@@ -527,8 +561,8 @@
                         </div>
 
                         <div id="prefundContainer" class="hidden mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                            <h4 class="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Prefund Deal Instruction</h4>
-                            <div id="prefundMsg" class="p-3 bg-blue-50 dark:bg-blue-900/30 rounded border border-blue-200 dark:border-blue-800 font-bold text-lg text-blue-800 dark:text-blue-300">
+                            <h4 class="text-xs font-bold text-blue-700 dark:text-blue-400 uppercase tracking-wide mb-2">Prefund Deal Instruction</h4>
+                            <div id="prefundMsg" class="overflow-hidden rounded-lg border border-gray-200 dark:border-gray-700 mt-2">
                                 </div>
                         </div>
 
@@ -826,41 +860,9 @@
                     </table>
                 </div>
 
-                <div class="border-t border-b border-gray-200 dark:border-gray-700 bg-purple-50 dark:bg-purple-900/30 px-6 py-3">
-                    <h3 class="text-sm font-bold text-purple-700 dark:text-purple-400 uppercase tracking-wide">Employment discount</h3>
-                </div>
-                <div class="p-6 overflow-x-auto">
-                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-sm">
-                        <thead class="bg-gray-50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 font-bold uppercase">
-                            <tr>
-                                <th class="px-4 py-3 text-left w-1/2">Product</th>
-                                <th class="px-4 py-3 text-left w-1/2">Discount</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-gray-800 dark:text-gray-200">
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                <td class="px-4 py-3 font-bold">Vehicle Price</td>
-                                <td class="px-4 py-3">-$1,000 +tax</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                <td class="px-4 py-3 font-bold">Essential fee</td>
-                                <td class="px-4 py-3">-$1,500 +tax</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                <td class="px-4 py-3 font-bold">Warranty</td>
-                                <td class="px-4 py-3">-$2,300 +tax</td>
-                            </tr>
-                            <tr class="hover:bg-gray-50 dark:hover:bg-gray-700/30">
-                                <td class="px-4 py-3 font-bold">GAP</td>
-                                <td class="px-4 py-3">-$1,800 +tax</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
             </section>
 
-            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <section class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-600 hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group flex items-center justify-between">
                 <div class="border-b border-gray-200 dark:border-gray-700 bg-blue-50 dark:bg-blue-900/30 px-6 py-4 rounded-t-xl">
                     <h2 class="text-lg font-bold text-blue-700 dark:text-blue-400">B. Useful Links</h2>
                 </div>
@@ -1014,9 +1016,14 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "✍️ P.9, 10",
-                prefund: "for PREFUND: Send in Admin",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Email: cibcemailfunding@autocapital.ca",
+                    docs: "BOS, FC, Cert, VC",
+                    special: "DON’T SEND PHOTO FILES, CONVERT TO PDF"
+                },
                 docs: ["CIBC Conditional Sales Contract (P.9, 10)", "CIBC Credit Application"],
-                l1: { middle: "NO", mononym: "<li>No First Name and names in last name field<br><span class='font-bold text-red-600 dark:text-red-400'><li>2nd IDs </span> required for mononyms", manual: "Yes but not to name or VIN", digital: "YES" },
+                l1: { middle: "NO", mononym: "<li>No First Name and names in last name field<br><span class='font-bold text-red-600 dark:text-red-400'>2nd IDs required</span> for mononyms", manual: "Yes but not to name or VIN", digital: "YES" },
                 l2: { 
                     ids: "Provincial ID cards accepted", 
                     special: [
@@ -1030,7 +1037,12 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "✍️ P.12, 13, 16",
-                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>Send via Docusign</span>",
+                prefundData: {
+                    bos: "Send via Docusign",
+                    method: "Email: deboursefaxfbc@bnc.ca",
+                    docs: "BOS, FC, Cert, VC",
+                    special: "If signing, export as MICROSOFT PRINT PDF + BLACK AND WHITE then COMPRESS"
+                },
                 docs: ["Conditional Sales Agreement (P.12, 13)", "Additional required lender form(s) (P. 3)"],
                 l1: { 
                     middle: "NO", 
@@ -1051,7 +1063,11 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "✍️ P.13, 14",
-                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>Send via Docusign</span>",
+                prefundData: {
+                    bos: "Send via Docusign",
+                    method: "Portal: <a href='https://autovantage.rbc.com/' target='_blank' class='underline text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300'>https://autovantage.rbc.com/</a><br>Copy FS App# or Lender Reference",
+                    docs: "BOS, FC, Cert, VC"
+                },
                 docs: [
                     "Credit Application", 
                     "Conditional Sales Contract (P.10, 11)",
@@ -1079,13 +1095,18 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "✍️ P. 1, 10, 11",
-                prefund: "for PREFUND: Send in Admin",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Email: funding@generalbank.ca",
+                    docs: "BOS, FC, Cert, VC",
+                    special: "- Separate BOS and CERTS if signing;<br>- Export as MICROSOFT PRINT PDF + BLACK AND WHITE then COMPRESS"
+                },
                 docs: ["Client Identification (P.1 (w/ Print Name))", "Conditional Sales Contract (P. 10, 11 (w/ Print Name))", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
                 l2: { 
-                    ids: "<ul class='list-disc pl-4 text-red-600 dark:text-red-400 font-bold'><li>2nd ID required for Temp DL, other than old DL</li><li>At least one buyer has to have G2 or G</li></ul>", 
+                    ids: "<ul class='list-disc pl-4 text-red-600 dark:text-red-400 font-bold'><li>Temp DL: 2nd ID required (NOT old DL)</li><li>At least one buyer has to have G2 or G</li></ul>", 
                     special: [
-                        "<span class='text-red-600 dark:text-red-400 font-bold'>2nd ID required for Temp ID. Other than old DL</span>",
+                        "Temp DL: 2nd ID required (NOT old DL)",
                         "<strong>For Business Loans:</strong> Max 60 months on business loans",
                         "<strong>For Business Loans:</strong> Cannot be solely under a business, needs the director to be co-buyer",
                         "<strong>For Business Loans:</strong> Need 2 years Accountant-Prepared Corporate Financial Statements",
@@ -1098,7 +1119,12 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "✍️ P.5",
-                prefund: "for PREFUND: Send in Admin",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Email: TDAFDocuments@td.com",
+                    docs: "BOS, FC, Cert, VC, Ref (Sub-prime)",
+                    special: "Every signature must be accompanied by a date"
+                },
                 docs: ["Client Identification Disclosure Form", "Conditional Sale Contract (P. 5)", "Credit Application"],
                 l1: { middle: "NO", mononym: "both names in both fields", manual: "Yes but only one correction per contract", digital: "YES" },
                 l2: { 
@@ -1115,7 +1141,11 @@
                 bgClass: "bg-green-50 dark:bg-green-900/10", 
                 borderClass: "border-green-200 dark:border-green-800",
                 signature: "✍️ P.4",
-                prefund: "for PREFUND: Send in Admin",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Portal: <a href='https://www.scotiaautohub.com/2.0/' target='_blank' class='underline text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300'>https://www.scotiaautohub.com/2.0/</a> <br>(MT for Ontario; NS for East) <br>Copy FS App# or Lender Reference",
+                    docs: "BOS, FC, Cert, VC"
+                },
                 docs: [
                     "Scotiabank Credit Application (P. 4)",
                     "Conditional Sales Contract", 
@@ -1126,7 +1156,8 @@
                 l2: { 
                     ids: "Provincial ID cards accepted", 
                     special: [
-                        "Only accept <span class='font-bold text-red-600 dark:text-red-400'>UTILITY BILL</span> OR <span class='font-bold text-red-600 dark:text-red-400'>BANK STATEMENT</span> as POR"
+                        "Only accept <span class='font-bold text-red-600 dark:text-red-400'>UTILITY BILL</span> OR <span class='font-bold text-red-600 dark:text-red-400'>BANK STATEMENT</span> as POR",
+                        "Need all <span class='text-red-600 dark:text-red-400 font-bold'>middle names</span>"
                     ] 
                 }
             },
@@ -1137,7 +1168,11 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "✍️ P.9 (2 signatures)",
-                prefund: "for PREFUND: Send in Admin",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Email: faxes@edenparkcanada.com",
+                    docs: "BOS, FC, Cert, VC, DL, Ref, CFX"
+                },
                 docs: ["Consumer Finance Contract (P.9 (2 Signatures))", "Credit Application"],
                 l1: { 
                     middle: "YES", 
@@ -1149,7 +1184,7 @@
                     ids: "Main must be G2 or G license", 
                     special: [
                         "<span class='font-bold text-red-600 dark:text-red-400'>Only accept Utility Bill as POR</span>",
-                        "GAP needs to be in “other-taxable”, not “A/H Insurance”",
+                        "<span class='text-red-600 dark:text-red-400 font-bold'>GAP</span> needs to be in <span class='text-red-600 dark:text-red-400 font-bold'>“other-taxable”</span>, not “A/H Insurance”",
 			"Reference Required for Sub prime"
                     ] 
                 },
@@ -1167,13 +1202,17 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign Manually. NO Digital Sign",
-                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
+                prefundData: {
+                    bos: "MANUAL SEND",
+                    method: "Email: funding@autocapitalcanada.ca",
+                    docs: "BOS, FC, Cert, VC, DL, Ref, POI, CFX, Reg"
+                },
                 docs: ["Application for Credit", "Loan Agreement"],
                 l1: { middle: "NO", mononym: "No First Name and names in last name field", manual: "Yes but not to name or VIN", digital: "YES" },
                 l2: { 
                     ids: "Main must be G2 or G license", 
                     special: [
-                        "Most likely will have a cap on GAP price (usually $2k max) - check standard stipulation",
+                        "<span class='text-red-600 dark:text-red-400 font-bold'>Cap on GAP</span> price most likely (usually $2k max)",
                         "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor",
 			"Reference Required for Sub prime"
                     ] 
@@ -1184,6 +1223,11 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "✍️ P.5",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Email: docs.auto@ia.ca",
+                    docs: "BOS, FC, Cert, VC, DL, Ref"
+                },
                 docs: ["Conditional Sales Agreement (P.5 (w/ Print Name))", "Credit Application"],
                 l1: { middle: "NO", mononym: "Both names in both fields", manual: "Name and KM are allowed", digital: "YES" },
                 l2: { 
@@ -1201,7 +1245,11 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "✍️ P.11",
-                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
+                prefundData: {
+                    bos: "MANUAL SEND",
+                    method: "Email: funding@santanderconsumer.ca",
+                    docs: "BOS, FC, Cert, VC, DL"
+                },
                 docs: ["Contract", "Credit Application", "Customer ID Form (P.1 (w/ Print Name))"],
                 l1: { middle: "-", mononym: "-", manual: "-", digital: "-" },
                 l2: { ids: "-", special: [
@@ -1213,15 +1261,20 @@
                 bgClass: "bg-pink-50 dark:bg-pink-900/10", 
                 borderClass: "border-pink-200 dark:border-pink-800",
                 signature: "Sign Manually. NO Digital Sign",
-                prefund: "for PREFUND: Send in Admin",
+                prefundData: {
+                    bos: "Send in Admin",
+                    method: "Email: if deal is not in the scotia portal use docs@sdaauto.com",
+                    docs: "BOS, FC, Cert, VC, Ref"
+                },
                 docs: ["Applicant's Statement", "Credit Agreement", "Customer Identification Verification Form", "<span class='text-indigo-600'>Legal Name Verification (for East only)</span>"],
                 l1: { middle: "YES", mononym: "both names in both fields", manual: "Customer and vehicle information only", digital: "YES" },
                 l2: { 
                     ids: "-", 
                     special: [
                         "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor",
-			"Reference Required for Sub prime"
-
+			"Reference Required for Sub prime",
+                        "Need all <span class='text-red-600 dark:text-red-400 font-bold'>middle names</span>",
+                        "<span class='text-red-600 dark:text-red-400 font-bold'>Wet sign Only</span>"
                     ] 
                 }
             },
@@ -1232,15 +1285,21 @@
                 bgClass: "bg-purple-50 dark:bg-purple-900/10", 
                 borderClass: "border-purple-200 dark:border-purple-800",
                 signature: "Sign Manually. NO Digital Sign",
-                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
+                prefundData: {
+                    bos: "MANUAL SEND",
+                    method: "Email: customerservice@lendcare.ca",
+                    docs: "BOS, FC, Cert, VC, DL, Ref, POI, CFX, Reg",
+                    special: "- 'tier 1' on the decision page, don't send insurance <br>- BMO VC not allowed"
+                },
                 docs: ["Credit Agreement", "<span class='text-indigo-600'>GPS Agreement (if Applicable)</span>"],
                 l1: { middle: "YES", mononym: "-", manual: "Yes with initials", digital: "YES" },
                 l2: { 
                     ids: "<ul class='list-disc pl-4'><li>Main must be G2 or G license</li><li>Co-app can be ID cards</li></ul>", 
                     special: [
                         "<span class='font-bold text-red-600 dark:text-red-400'>Not accept BMO Void Cheque</span>",
-                        "Insurance must show LendCare Capital as lienholder (exemption BC/MB will not show -LendCare as lienholders)",
-			"Reference Required for Sub prime"
+                        "<span class='text-red-600 dark:text-red-400 font-bold'>Insurance</span> must show LendCare Capital as lienholder (exemption BC/MB will not show -LendCare as lienholders)",
+			"Reference Required for Sub prime",
+            "Admin fee under 'dealer admin fee' not in CASH PRICE"
 
                     ] 
                 },
@@ -1255,11 +1314,17 @@
                 bgClass: "bg-purple-50 dark:bg-purple-900/10", 
                 borderClass: "border-purple-200 dark:border-purple-800",
                 signature: "✍️ P.1, 6",
-                prefund: "for PREFUND: <span class='text-red-600 dark:text-red-400'>MANUAL SEND</span>",
+                prefundData: {
+                    bos: "MANUAL SEND",
+                    method: "Email: email provided on decision page (ref#@uw.northlakefinancial.ca) plus cc cBehar@northlakefinancial.ca",
+                    docs: "BOS, FC, Cert, VC, DL, Ref, CFX",
+                    special: "No insurance"
+                },
                 docs: ["Asset Verification (P. 1)", "Conditional Sales Contract (P. 5)", "Consumer Credit Application", "<span class='text-indigo-600'> Legal Name Disclosure (for East only) (P. 1) </span>", "<span class='text-indigo-600'> Disclosure Statement and Agreement for Installation (GPS) <strong>(if Applicable) </span></strong>"],
                 l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes and encourage for minor changes", digital: "YES" },
                 l2: { ids: "At least one buyer has to have G2 or G", special: ["Co-app can be ID cards or CA passport",
-			"Reference Required for Sub prime"
+			"Reference Required for Sub prime",
+            "Tire and rim needs to be in base price"
 ] },
                 bonus: [
                     "10.99% or higher - $600 bonus",
@@ -1305,12 +1370,51 @@
                     // Update Container Classes
                     lenderResult.className = `rounded-lg border p-6 transition-colors duration-300 ${data.bgClass} ${data.borderClass}`;
                     
-                    // 0. Prefund Deal
+                    // 0. Prefund Deal Table Logic
                     const prefundDiv = document.getElementById('prefundContainer');
                     const prefundMsg = document.getElementById('prefundMsg');
-                    if (data.prefund) {
+                    
+                    if (data.prefundData) {
                         prefundDiv.classList.remove('hidden');
-                        prefundMsg.innerHTML = data.prefund; // Changed to innerHTML to support color spans
+                        
+                        // Check if BOS value needs red highlight
+                        const bosValue = data.prefundData.bos;
+                        let bosDisplay = bosValue;
+                        if (bosValue === "MANUAL SEND" || bosValue === "Send via Docusign") {
+                            bosDisplay = `<span class="text-red-600 dark:text-red-400 font-bold">${bosValue}</span>`;
+                        }
+
+                        // Generate Table HTML with side headers (Rows) and values (Column)
+                        let tableHtml = `
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full border-collapse border border-gray-200 dark:border-gray-700">
+                                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800">
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider bg-gray-50 dark:bg-gray-700/50 w-1/3 border-r border-gray-200 dark:border-gray-700">BOS</th>
+                                            <td class="px-4 py-3 text-gray-900 dark:text-gray-100 font-medium">${bosDisplay}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider bg-gray-50 dark:bg-gray-700/50 w-1/3 border-r border-gray-200 dark:border-gray-700">Submissions method</th>
+                                            <td class="px-4 py-3 text-blue-600 dark:text-blue-400 font-medium break-words">${data.prefundData.method}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider bg-gray-50 dark:bg-gray-700/50 w-1/3 border-r border-gray-200 dark:border-gray-700">Doc Required</th>
+                                            <td class="px-4 py-3 text-gray-700 dark:text-gray-300 font-bold">${data.prefundData.docs}</td>
+                                        </tr>
+                                        <tr>
+                                            <th class="px-4 py-3 text-left font-bold text-gray-500 dark:text-gray-300 uppercase tracking-wider bg-gray-50 dark:bg-gray-700/50 w-1/3 border-r border-gray-200 dark:border-gray-700">Specific Req.</th>
+                                            <td class="px-4 py-3 text-gray-900 dark:text-gray-100 align-top">${data.prefundData.special || '-'}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        `;
+                        prefundMsg.innerHTML = tableHtml;
+                        
+                    } else if (data.prefund) {
+                        // Legacy support for string only (though all should be objects now)
+                        prefundDiv.classList.remove('hidden');
+                        prefundMsg.innerHTML = `<div class="p-3 bg-blue-50 dark:bg-blue-900/30 font-bold text-lg text-blue-800 dark:text-blue-300">${data.prefund}</div>`;
                     } else {
                         prefundDiv.classList.add('hidden');
                     }
@@ -1581,6 +1685,3 @@
     </script>
 </body>
 </html>
-
-
-
