@@ -504,6 +504,12 @@
 					    <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">Second ID Required</td>
 					    <td id="row-second-id" class="px-4 py-3 text-gray-900 dark:text-white w-2/3"></td>						
                                         </tr>
+                                        <tr>
+                                            <td class="px-4 py-3 font-bold text-gray-600 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 w-1/3 align-top">Specific Req.</td>
+                                            <td class="px-4 py-3 text-gray-900 dark:text-white w-2/3">
+                                                <ul id="l2-special" class="list-disc pl-5 font-medium space-y-1"></ul>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -513,13 +519,7 @@
                             <h4 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">Specific & General Rules</h4>
                             <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700 text-sm">
                                 
-                                <div class="mb-4">
-                                    <h5 class="font-bold text-gray-800 dark:text-gray-100 mb-1">Lender Specific:</h5>
-                                    <ul id="l2-special" class="list-disc pl-5 font-medium text-gray-900 dark:text-gray-200 space-y-1">
-                                    </ul>
-                                </div>
-
-                                <div class="pt-3 border-t border-yellow-200 dark:border-yellow-700/50">
+                                <div>
                                     <h5 class="font-bold text-gray-800 dark:text-gray-100 mb-2">General Requirements:</h5>
                                     <ul class="list-none space-y-2 text-gray-800 dark:text-gray-200">
                                         <li class="flex items-start">
@@ -1033,7 +1033,7 @@
                 l2: { 
                     ids: "Provincial ID cards accepted", 
                     special: [
-                        "VC date with 5 yrs",
+                        "VC date inwith 5 yrs",
                         "If they are employed by a U.S. employer they need to upload notice of assessment even if it’s not in the stipulations"
                     ] 
                 }
@@ -1077,9 +1077,9 @@
                 docs: [
                     "Credit Application", 
                     "Conditional Sales Contract (P.10, 11)",
-                    "<span class='text-gray-400'>Authorized Signatory Form (business)</span>",
-                    "<span class='text-gray-400'>Corporate Resolution Form (business)</span>",
-                    "<span class='text-gray-400'>Customer Identification Verification (business)</span>"
+                    "<span class='text-gray-400'>Authorized Signatory Form (business) (P.1 (w/ Print Name)) </span>",
+                    "<span class='text-gray-400'>Customer Identification Verification (business) (P.2)</span>",
+		    "<span class='text-gray-400'>Corporate Resolution Form (business)</span> <a href='https://drive.google.com/file/d/1CW1RNp4voLBaSrccUtDkuBa2LDnS4M6c/view?usp=sharing' target='_blank' class='underline text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300'>Business Deal FC sample</a>"
                 ],
                 l1: { 
                     middle: "NO", 
@@ -1089,10 +1089,9 @@
                 },
                 l2: { 
                     ids: "<span class='font-bold text-red-600 dark:text-red-400'>Not accepted Photo ID (Unless exception granted)</span>", 
-                    special: [
-                        "<span class='font-bold text-red-600 dark:text-red-400'>International Passport NOT ACCEPTED</span>", 
-                        "GAP needs to be in the GAP box on Dealertrack",
-                        "If name on void cheque doesn’t match FC, add bank account info on DT under Pre-Authorized Debit"
+                    special: [                       
+                        "GAP needs to be in the <span class='font-bold text-red-600 dark:text-red-400'>GAP box </span>on Dealertrack",
+                        "Add bank account info on DT under Pre-Authorized Debit if name on void cheque doesn't match FC"
                     ] 
                 }
             },
@@ -1112,7 +1111,6 @@
                 l2: { 
                     ids: "At least one buyer has to have G2 or G", 
                     special: [
-                        "Temp DL: 2nd ID required (NOT old DL)",
                         "<strong>For Business Loans:</strong> Max 60 months on business loans",
                         "<strong>For Business Loans:</strong> Cannot be solely under a business, needs the director to be co-buyer",
                         "<strong>For Business Loans:</strong> Need 2 years Accountant-Prepared Corporate Financial Statements",
@@ -1157,7 +1155,7 @@
                     "Scotiabank Credit Application (P. 4)",
                     "Conditional Sales Contract", 
                     "Customer Identification Verification", 
-                    "<span class='text-gray-400'>Business Resolution Form (for business deals)</span>"
+                    "<span class='text-gray-400'>Business Resolution Form (for business deals) (No signature required)</span> <a href='https://drive.google.com/file/d/15QRJluK6bp725FtT6EO_uWbfAYxgEEd5/view?usp=sharing' target='_blank' class='underline text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300'>Business Deal FC sample</a>"
                 ],
                 l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes with initials", digital: "YES" },
                 l2: { 
@@ -1240,7 +1238,7 @@
                 l2: { 
                     ids: "Main must be G2 or G license", 
                     special: [
-                        "Co-app can be ID cards or CA passport",
+			"Co-app can be ID cards or CA passport",
 			"Ivy & POD Manager approval required for <span class='text-red-600 dark:text-red-400 font-bold'>Interenational Passport</span> ",
                         "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor",
 			"Reference Required for Sub prime"
@@ -1303,7 +1301,7 @@
                 l2: { 
                     ids: "<ul class='list-disc pl-4'><li>Main must be G2 or G license</li><li>Co-app can be ID cards</li></ul>", 
                     special: [
-                        "<span class='font-bold text-red-600 dark:text-red-400'>Not accept BMO Void Cheque</span>",
+                        "Not accept <span class='font-bold text-red-600 dark:text-red-400'>BMO Void Cheque</span>",
                         "<span class='text-red-600 dark:text-red-400 font-bold'>Insurance</span> must show LendCare Capital as lienholder (exemption BC/MB will not show -LendCare as lienholders)",
 			"Reference Required for Sub prime",
             "Admin fee under 'dealer admin fee' not in CASH PRICE"
@@ -1330,7 +1328,7 @@
                 docs: ["Asset Verification (P. 1)", "Conditional Sales Contract (P. 5)", "Consumer Credit Application", "<span class='text-indigo-600'> Legal Name Disclosure (for East only) (P. 1) </span>", "<span class='text-indigo-600'> Disclosure Statement and Agreement for Installation (GPS) <strong>(if Applicable) </span></strong>"],
                 l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes and encourage for minor changes", digital: "YES" },
                 l2: { ids: "At least one buyer has to have G2 or G", special: ["Co-app can be ID cards or CA passport",
-			"Reference Required for Sub prime",
+			"Reference Required for Sub prime Deal",
             "Tire and rim needs to be in base price"
 ] },
                 bonus: [
