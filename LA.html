@@ -515,6 +515,12 @@
                             </div>
                         </div>
 
+                        <div id="refContainer" class="hidden mb-6">
+                            <h4 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">References Requirement</h4>
+                            <div id="refContent" class="p-3 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 font-medium text-gray-800 dark:text-gray-100 text-sm leading-relaxed">
+                            </div>
+                        </div>
+
                         <div class="mb-6">
                             <h4 class="text-xs font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wide mb-2">Specific & General Rules</h4>
                             <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg border border-yellow-200 dark:border-yellow-700 text-sm">
@@ -1135,11 +1141,10 @@
                     ids: "Provincial ID cards accepted", 
                     special: [
                         "Picky about <span class='font-bold text-red-600 dark:text-red-400'> employer info </span>, wants specific titles",
-                        "No. of payment minor 1 on BOS & FC",
-			"Two references if friend, co-worker or extended family",
-			"One reference if immediate family <span class='font-bold text-red-600 dark:text-red-400'>(not living under the same address)</span> (Applicable to Keys 2-5)"
+                        "No. of payment minor 1 on BOS & FC"
                     ] 
-                }
+                },
+                references: "2 References (only needed for keys 2-5)<br>If references is immediate family only 1 is needed (cannot live with applicant or share phone number)"
             },
             "BNS": { 
                 type: "Prime", 
@@ -1189,8 +1194,7 @@
                     ids: "Main must be G2 or G license", 
                     special: [
                         "<span class='font-bold text-red-600 dark:text-red-400'>Only accept Utility Bill as POR</span>",
-                        "<span class='text-red-600 dark:text-red-400 font-bold'>GAP</span> needs to be in <span class='text-red-600 dark:text-red-400 font-bold'>“other-taxable”</span>, not “A/H Insurance”",
-			"Reference Required for Sub prime"
+                        "<span class='text-red-600 dark:text-red-400 font-bold'>GAP</span> needs to be in <span class='text-red-600 dark:text-red-400 font-bold'>“other-taxable”</span>, not “A/H Insurance”"
                     ] 
                 },
                 bonus: [
@@ -1200,7 +1204,8 @@
                     "$15,001-$20,000 - $450 bonus",
                     "$10,001-$15,000 - $300 bonus",
                     "Up to $10,000 - $250 bonus"
-                ]
+                ],
+                references: "3 References - cannot live with applicant or share phone number"
             },
             "Autocapital": { 
                 type: "Sub-Prime", 
@@ -1218,10 +1223,10 @@
                     ids: "Main must be G2 or G license", 
                     special: [
                         "<span class='text-red-600 dark:text-red-400 font-bold'>Cap on GAP</span> price most likely (usually $2k max)",
-                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor",
-			"Reference Required for Sub prime"
+                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor"
                     ] 
-                }
+                },
+                references: "2 References - cannot be spousal and should not reside at the same address"
             },
             "iA": { 
                 type: "Sub-Prime", 
@@ -1240,10 +1245,10 @@
                     special: [
 			"Co-app can be ID cards or CA passport",
 			"Ivy & POD Manager approval required for <span class='text-red-600 dark:text-red-400 font-bold'>Interenational Passport</span> ",
-                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor",
-			"Reference Required for Sub prime"
+                        "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor"
                     ] 
-                }
+                },
+                references: "2 References - cannot live with applicant or share phone number"
             },
             "Santander": { 
                 type: "Sub-Prime", 
@@ -1257,9 +1262,8 @@
                 },
                 docs: ["Contract", "Credit Application", "Customer ID Form (P.1 (w/ Print Name))"],
                 l1: { middle: "-", mononym: "-", manual: "-", digital: "-" },
-                l2: { ids: "-", special: [
-			"Reference Required for Sub prime"
-		] }
+                l2: { ids: "-", special: [] },
+                references: "Tier 1-2 require 5 references - cannot live with applicant or share phone number<br>Tiers 3-6 require 3 references - cannot live with applicant or share phone number<br>No references for tier 7-9 and track 1"
             },
             "SDA": { 
                 type: "Sub-Prime", 
@@ -1277,11 +1281,11 @@
                     ids: "-", 
                     special: [
                         "Check <span class='text-red-600 dark:text-red-400 font-bold'>carfax</span> for any accident claims, if <span class='text-red-600 dark:text-red-400 font-bold'>over $7,500</span> flag advisor",
-			"Reference Required for Sub prime",
                         "Need all <span class='text-red-600 dark:text-red-400 font-bold'>middle names</span>",
                         "<span class='text-red-600 dark:text-red-400 font-bold'>Wet sign Only</span>"
                     ] 
-                }
+                },
+                references: "2 References - cannot live with applicant or share phone number"
             },
 
             // Pre-fund
@@ -1303,7 +1307,6 @@
                     special: [
                         "Not accept <span class='font-bold text-red-600 dark:text-red-400'>BMO Void Cheque</span>",
                         "<span class='text-red-600 dark:text-red-400 font-bold'>Insurance</span> must show LendCare Capital as lienholder (exemption BC/MB will not show -LendCare as lienholders)",
-			"Reference Required for Sub prime",
             "Admin fee under 'dealer admin fee' not in CASH PRICE"
 
                     ] 
@@ -1312,7 +1315,8 @@
                     "11.9% - 25.9% - $799 bonus",
                     "26.9% - 28.9% - $599 bonus",
                     "29.9% - $199-$399 bonus"
-                ]
+                ],
+                references: "2 References"
             },
             "North Lake": { 
                 type: "Pre-fund Required", 
@@ -1328,7 +1332,6 @@
                 docs: ["Asset Verification (P. 1)", "Conditional Sales Contract (P. 5)", "Consumer Credit Application", "<span class='text-indigo-600'> Legal Name Disclosure (for East only) (P. 1) </span>", "<span class='text-indigo-600'> Disclosure Statement and Agreement for Installation (GPS) <strong>(if Applicable) </span></strong>"],
                 l1: { middle: "YES", mononym: "Both names in both fields", manual: "Yes and encourage for minor changes", digital: "YES" },
                 l2: { ids: "At least one buyer has to have G2 or G", special: ["Co-app can be ID cards or CA passport",
-			"Reference Required for Sub prime Deal",
             "Tire and rim needs to be in base price"
 ] },
                 bonus: [
@@ -1336,7 +1339,8 @@
                     "13.99% or higher - $450 bonus",
                     "17.99% or higher - $300 bonus",
                     "22.99% or higher - no reserve/bonus"
-                ]
+                ],
+                references: "2 References - if immediate family, only 1 is needed but the references CANNOT live with applicant"
             }
         };
 
@@ -1466,19 +1470,19 @@
                     const idsEl = document.getElementById('row-ids');
                     idsEl.innerHTML = data.l2.ids || "-"; 
 
-			// === 新增：Second ID Required Logic ===
+			// === Second ID Required Logic ===
 			const secondIdEl = document.getElementById('row-second-id');
 			let secondIdText = "N/A";
-			// 預設樣式 (普通顏色)
+			// default style
 			let secondIdClass = "px-4 py-3 text-gray-900 dark:text-white w-2/3";
 
 			if (selected === "CIBC") {
 			    secondIdText = "2nd ID required for Mononym (Other than DL)";
-			    // 紅色樣式
+			    // red style
 			    secondIdClass = "px-4 py-3 text-red-600 dark:text-red-400 font-bold w-2/3";
-			} else if (selected === "GENERAL BANK") { // 對應 value="GENERAL BANK"
+			} else if (selected === "GENERAL BANK") { 
 			    secondIdText = "2nd ID required for Temp DL (Other than old DL)";
-			    // 紅色樣式
+			    // red style
 			    secondIdClass = "px-4 py-3 text-red-600 dark:text-red-400 font-bold w-2/3";
 			}
 
@@ -1516,6 +1520,18 @@
                         });
                     } else {
                         bonusDiv.classList.add('hidden');
+                    }
+                    
+                    // 6. References Section (NEW)
+                    const refContainer = document.getElementById('refContainer');
+                    const refContent = document.getElementById('refContent');
+
+                    if (data.references) {
+                        refContainer.classList.remove('hidden');
+                        refContent.innerHTML = data.references;
+                    } else {
+                        refContainer.classList.add('hidden');
+                        refContent.innerHTML = "";
                     }
 
                     // Sub-Prime Warning Logic
@@ -1710,6 +1726,3 @@
     </script>
 </body>
 </html>
-
-
-
